@@ -10,7 +10,7 @@ export function App () {
 }
 
 const Wrapper = styled.div`
-  font-family: Helvitica, sans-serif;
+  font-family: Helvetica, sans-serif;
 `
 
 const Heading = styled.h1`
