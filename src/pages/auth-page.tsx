@@ -1,3 +1,5 @@
+import { Form } from '@/components/form'
+import { Input } from '@/components/input'
 import { Link } from '@/components/link'
 
 import {
@@ -12,6 +14,16 @@ function AuthPage () {
       <Link to='/' color='greenLight'>Log In <ArrowRightIcon /></Link>
       <br />
       <Link to='/authentication'><ArrowLeftIcon /> Back</Link>
+
+      <Form style={{
+        width: '357px',
+        height: '337px',
+        margin: '0 auto',
+      }}
+      >
+        <Input placeholder='Name' />
+        <Input placeholder='Password' />
+      </Form>
     </>
   )
 }
