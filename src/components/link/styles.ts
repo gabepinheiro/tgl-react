@@ -19,11 +19,17 @@ const LinkModifiers = {
 }
 
 export const LinkStyled = styled(Link)<Pick<Props, 'color'>>`
-  ${({ color, theme }) => css`
     text-decoration: none;
-    font-size: 3.5rem;
     font-weight: bold;
+    font-size: 3.5rem;
     font-style: italic;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.6rem;
+
+  ${({ color, theme }) => css`
     ${!!color && LinkModifiers[color](theme)};
   `}
 `
