@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  height: 90vh;
+  min-height: 90vh;
 `

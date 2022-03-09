@@ -15,7 +15,6 @@ export function App () {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <Routes>
-        <Route path='/' element={<PrivatePage element={<HomePage />} />} />
 
         <Route element={<PublicPageLayout />}>
           <Route path='/authentication' element={<AuthPage />} />
@@ -23,7 +22,11 @@ export function App () {
           <Route path='/reset-password' element={<ResetPasswordPage />} />
         </Route>
 
-        <Route path='/new-bet' element={<PrivatePage element={<NewBetPage />} />} />
+        <Route element={<PrivatePage />}>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/new-bet' element={<NewBetPage />} />
+        </Route>
+
         <Route path='*' element={<h1>Page not found!</h1>} />
       </Routes>
 
