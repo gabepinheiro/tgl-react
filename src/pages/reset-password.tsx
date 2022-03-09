@@ -17,12 +17,21 @@ function ResetPasswordPage () {
         <Input placeholder='Email' />
 
         <S.ButtonLinkWrapper>
-          <ButtonLink as='button' color='greenLight'>
+          <ButtonLink
+            as='button'
+            color='greenLight'
+            size='large'
+          >
             Send link <ArrowRightIcon />
           </ButtonLink>
         </S.ButtonLinkWrapper>
       </Form>
-      <ButtonLink as='button'><ArrowLeftIcon /> Back</ButtonLink>
+      <ButtonLink
+        as='button'
+        size='large'
+      >
+        <ArrowLeftIcon /> Back
+      </ButtonLink>
     </>
   )
 }

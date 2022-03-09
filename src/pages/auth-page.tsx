@@ -21,13 +21,19 @@ function AuthPage () {
           <ButtonLink
             as='button'
             color='greenLight'
+            size='large'
           >
             Log In <ArrowRightIcon />
           </ButtonLink>
         </S.ButtonLinkWrapper>
       </Form>
 
-      <ButtonLink to='/authentication'><ArrowLeftIcon /> Back</ButtonLink>
+      <ButtonLink
+        to='/authentication'
+        size='large'
+      >
+        <ArrowLeftIcon /> Back
+      </ButtonLink>
     </>
   )
 }

@@ -28,13 +28,19 @@ function RegisterPage () {
           <ButtonLink
             as='button'
             color='greenLight'
+            size='large'
           >
             Register <ArrowRightIcon />
           </ButtonLink>
         </S.ButtonLinkWrapper>
       </Form>
 
-      <ButtonLink to='/authentication'><ArrowLeftIcon /> Back</ButtonLink>
+      <ButtonLink
+        to='/authentication'
+        size='large'
+      >
+        <ArrowLeftIcon /> Back
+      </ButtonLink>
     </>
   )
 }

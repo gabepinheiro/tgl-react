@@ -16,6 +16,7 @@ type ButtonLinkTypes =
 export type Props = {
   children: ReactNode
   color?: 'black' | 'greenLight'
+  size?: 'medium' | 'large'
   as?: ElementType
   to?: To
 } & ButtonLinkTypes
@@ -23,12 +24,14 @@ export type Props = {
 export const ButtonLink = ({
   children,
   color = 'black',
+  size = 'medium',
   ...props
 }: Props) => {
   return (
     <ButtonLinkStyled
       as={!props.to ? 'button' : props.as}
       color={color}
+      size={size}
       {...props}
     >
       {children}
