@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import PublicPageLayout from '@/layout/public-page'
+import { Footer } from './layout/footer'
 
 const AuthPage = lazy(() => import('@/pages/auth-page'))
 const HomePage = lazy(() => import('@/pages/home'))
@@ -24,6 +25,8 @@ export function App () {
         <Route path='/new-bet' element={<NewBetPage />} />
         <Route path='*' element={<h1>Page not found!</h1>} />
       </Routes>
+
+      <Footer />
     </Suspense>
   )
 }

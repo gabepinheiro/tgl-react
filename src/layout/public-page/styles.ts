@@ -7,7 +7,7 @@ export const Container = styled.main`
 
   margin: 0 auto;
   display: flex;
-  height: 93vh;
+  height: 90vh;
 
   & > * {
     height: 100%;
