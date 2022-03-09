@@ -7,23 +7,22 @@ import {
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
 
+import * as S from './styles'
+
 function AuthPage () {
   return (
     <>
-      <h1>Authentication Page</h1>
-      <Link to='/' color='greenLight'>Log In <ArrowRightIcon /></Link>
-      <br />
-      <Link to='/authentication'><ArrowLeftIcon /> Back</Link>
-
-      <Form style={{
-        width: '357px',
-        height: '337px',
-        margin: '0 auto',
-      }}
-      >
+      <S.Heading>Authentication</S.Heading>
+      <Form>
         <Input placeholder='Name' />
         <Input placeholder='Password' />
+
+        <S.LinkWrapper>
+          <Link to='/' color='greenLight'>Log In <ArrowRightIcon /></Link>
+        </S.LinkWrapper>
       </Form>
+
+      <Link to='/authentication'><ArrowLeftIcon /> Back</Link>
     </>
   )
 }
