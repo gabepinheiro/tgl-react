@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
+import PublicPageLayout from '@/layout/public-page'
+
 const AuthPage = lazy(() => import('@/pages/auth-page'))
 const HomePage = lazy(() => import('@/pages/home'))
 const NewBetPage = lazy(() => import('@/pages/new-bet'))
@@ -12,9 +14,13 @@ export function App () {
     <Suspense fallback={<p>Loading...</p>}>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/authentication' element={<AuthPage />} />
-        <Route path='/register' element={<RegisterPage />} />
-        <Route path='/reset-password' element={<ResetPasswordPage />} />
+
+        <Route element={<PublicPageLayout />}>
+          <Route path='/authentication' element={<AuthPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/reset-password' element={<ResetPasswordPage />} />
+        </Route>
+
         <Route path='/new-bet' element={<NewBetPage />} />
         <Route path='*' element={<h1>Page not found!</h1>} />
       </Routes>
