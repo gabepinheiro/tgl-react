@@ -5,7 +5,7 @@ export const Heading = styled.h2`
   font-style: italic;
 `
 
-export const LinkWrapper = styled.div`
+export const ButtonLinkWrapper = styled.div`
   width: max-content;
   padding: 3.4rem;
   margin: 0 auto;

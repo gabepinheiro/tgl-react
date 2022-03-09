@@ -3,7 +3,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 
 import { Props } from './index'
 
-const LinkModifiers = {
+const Modifiers = {
   black: (theme: DefaultTheme) => css`
     color: ${theme.colors.gray600};
     &:visited {
@@ -18,7 +18,9 @@ const LinkModifiers = {
 `,
 }
 
-export const LinkStyled = styled(Link)<Pick<Props, 'color'>>`
+export const ButtonLinkStyled = styled(Link)<Pick<Props, 'color'>>`
+    border: 0;
+    background-color: transparent;
     text-decoration: none;
     font-weight: bold;
     font-size: 3.5rem;
@@ -30,6 +32,6 @@ export const LinkStyled = styled(Link)<Pick<Props, 'color'>>`
     gap: 1.6rem;
 
   ${({ color, theme }) => css`
-    ${!!color && LinkModifiers[color](theme)};
+    ${!!color && Modifiers[color](theme)};
   `}
 `

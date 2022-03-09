@@ -1,6 +1,6 @@
 import { Form } from '@/components/form'
 import { Input } from '@/components/input'
-import { Link } from '@/components/link'
+import { ButtonLink } from '@/components/button-link'
 
 import {
   AiOutlineArrowRight as ArrowRightIcon,
@@ -17,12 +17,17 @@ function AuthPage () {
         <Input placeholder='Name' />
         <Input placeholder='Password' />
 
-        <S.LinkWrapper>
-          <Link to='/' color='greenLight'>Log In <ArrowRightIcon /></Link>
-        </S.LinkWrapper>
+        <S.ButtonLinkWrapper>
+          <ButtonLink
+            as='button'
+            color='greenLight'
+          >
+            Log In <ArrowRightIcon />
+          </ButtonLink>
+        </S.ButtonLinkWrapper>
       </Form>
 
-      <Link to='/authentication'><ArrowLeftIcon /> Back</Link>
+      <ButtonLink to='/authentication'><ArrowLeftIcon /> Back</ButtonLink>
     </>
   )
 }
