@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import PublicPageLayout from '@/layout/public-page'
 import { Footer } from './layout/footer'
+import { PrivatePage } from './layout/private-page'
 
 const AuthPage = lazy(() => import('@/pages/auth-page'))
 const HomePage = lazy(() => import('@/pages/home'))
@@ -14,7 +15,7 @@ export function App () {
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<PrivatePage element={<HomePage />} />} />
 
         <Route element={<PublicPageLayout />}>
           <Route path='/authentication' element={<AuthPage />} />
@@ -22,7 +23,7 @@ export function App () {
           <Route path='/reset-password' element={<ResetPasswordPage />} />
         </Route>
 
-        <Route path='/new-bet' element={<NewBetPage />} />
+        <Route path='/new-bet' element={<PrivatePage element={<NewBetPage />} />} />
         <Route path='*' element={<h1>Page not found!</h1>} />
       </Routes>
 
