@@ -5,6 +5,8 @@ export const Form = styled.form`
   border-radius: 1.4rem;
   overflow: hidden;
 
+  width: 352px;
+
   ${({ theme }) => css`
     background-color: ${theme.colors.white};
     border: 1px solid ${theme.colors.gray300};
