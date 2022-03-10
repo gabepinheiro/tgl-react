@@ -5,12 +5,17 @@ import * as S from './styles'
 export type ButtonProps = {
   children: ReactNode | ReactNode[]
   variant?: 'outline'
-  color?: 'green'
+  color?: 'green',
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const Button = ({ children, color = 'green', variant }: ButtonProps) => {
+export const Button = ({
+  children,
+  color = 'green',
+  variant,
+  ...props
+}: ButtonProps) => {
   return (
-    <S.Wrapper color={color} variant={variant}>
+    <S.Wrapper color={color} variant={variant} {...props}>
       {children}
     </S.Wrapper>
   )
