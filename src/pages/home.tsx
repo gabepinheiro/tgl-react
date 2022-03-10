@@ -19,7 +19,7 @@ function HomePage () {
   return (
     <S.Content>
       <S.Box style={{ display: 'flex', alignItems: 'center' }}>
-        <S.Heading>Recent games</S.Heading>
+        <S.Heading upcase>Recent games</S.Heading>
       </S.Box>
 
       <S.Box style={{ display: 'flex', alignItems: 'center', gap: '1.8rem' }}>

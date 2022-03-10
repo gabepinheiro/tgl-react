@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 type HeadingProps = {
   size?: 'medium' | 'large'
+  upcase?: boolean
 }
 
 const HeadingModifiers = {
@@ -11,11 +12,15 @@ const HeadingModifiers = {
   large: () => css`
     font-size: 3.5rem;
   `,
+  upcase: () => css`
+    text-transform: uppercase;
+  `,
 }
 
 export const Heading = styled.h2<HeadingProps>`
-  ${({ size = 'medium' }) => css`
+  ${({ size = 'medium', upcase = false }) => css`
     ${!!size && HeadingModifiers[size]}
+    ${upcase && HeadingModifiers.upcase()}
   `}
   font-style: italic;
 `
