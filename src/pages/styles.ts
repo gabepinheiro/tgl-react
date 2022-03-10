@@ -18,11 +18,16 @@ const HeadingModifiers = {
 }
 
 export const Heading = styled.h2<HeadingProps>`
+  font-style: italic;
+
+  & > span {
+    font-weight: 300;
+  }
+
   ${({ size = 'medium', upcase = false }) => css`
     ${!!size && HeadingModifiers[size]}
     ${upcase && HeadingModifiers.upcase()}
   `}
-  font-style: italic;
 `
 
 export const ButtonLinkWrapper = styled.div`
