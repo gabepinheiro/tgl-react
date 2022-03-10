@@ -25,3 +25,13 @@ export const ButtonLinkWrapper = styled.div`
   padding: 3.4rem;
   margin: 0 auto;
 `
+
+export const Content = styled.div`
+  display: grid;
+  grid-template-columns: max-content 2fr 1fr;
+  grid-gap: 4.5rem;
+`
+
+export const Box = styled.div``
+
+export const Text = styled.p``
