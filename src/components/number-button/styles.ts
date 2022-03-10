@@ -10,6 +10,6 @@ export const Wrapper = styled.button`
 
   ${({ theme }) => css`
     color: ${theme.colors.white};
-    background-color: #ADC0C4;
+    background-color: ${theme.colors.cyan};
   `}
 `
