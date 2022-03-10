@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Header } from '../header'
 
@@ -8,7 +7,9 @@ export const PrivatePage = () => {
   return (
     <S.Wrapper>
       <Header />
-      <Outlet />
+      <S.MainContainer>
+        <Outlet />
+      </S.MainContainer>
     </S.Wrapper>
   )
 }
