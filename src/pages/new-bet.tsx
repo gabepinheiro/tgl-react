@@ -1,4 +1,6 @@
+import { Button } from '@/components/button'
 import { NumberButton } from '@/components/number-button'
+import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
 
 function NewBetPage () {
   const numbers = [
@@ -12,6 +14,11 @@ function NewBetPage () {
       {numbers.map((number) => (
         <NumberButton key={number} number={number} />
       ))}
+      <div>
+        <Button variant='outline'>Complete game</Button>
+        <Button variant='outline'>Clear game</Button>
+        <Button><CartIcon size={25} /> Add to cart</Button>
+      </div>
     </>
   )
 }
