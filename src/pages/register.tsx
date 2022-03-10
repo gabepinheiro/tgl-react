@@ -18,7 +18,7 @@ function RegisterPage () {
 
   return (
     <>
-      <S.Heading>Registration</S.Heading>
+      <S.Heading size='large'>Registration</S.Heading>
       <Form onSubmit={handleSubmit}>
         <Input placeholder='Name' />
         <Input placeholder='Email' />

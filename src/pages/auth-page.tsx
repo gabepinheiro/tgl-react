@@ -12,7 +12,7 @@ import * as S from './styles'
 function AuthPage () {
   return (
     <>
-      <S.Heading>Authentication</S.Heading>
+      <S.Heading size='large'>Authentication</S.Heading>
       <Form>
         <Input placeholder='Name' />
         <Input placeholder='Password' />

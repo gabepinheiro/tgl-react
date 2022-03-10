@@ -1,7 +1,22 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Heading = styled.h2`
-  font-size: 3.5rem;
+type HeadingProps = {
+  size?: 'medium' | 'large'
+}
+
+const HeadingModifiers = {
+  medium: () => css`
+    font-size: 2.4rem;
+  `,
+  large: () => css`
+    font-size: 3.5rem;
+  `,
+}
+
+export const Heading = styled.h2<HeadingProps>`
+  ${({ size = 'medium' }) => css`
+    ${!!size && HeadingModifiers[size]}
+  `}
   font-style: italic;
 `
 

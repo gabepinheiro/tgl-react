@@ -12,7 +12,7 @@ import * as S from './styles'
 function ResetPasswordPage () {
   return (
     <>
-      <S.Heading>Reset password</S.Heading>
+      <S.Heading size='large'>Reset password</S.Heading>
       <Form>
         <Input placeholder='Email' />
 
