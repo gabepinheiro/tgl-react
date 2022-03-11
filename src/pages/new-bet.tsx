@@ -1,4 +1,5 @@
 import { Button } from '@/components/button'
+import { Cart } from '@/components/cart'
 import { GameButton } from '@/components/game-button'
 import { NumberButton } from '@/components/number-button'
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
@@ -53,7 +54,8 @@ function NewBetPage () {
             lineHeight: '2.4rem',
           }}
           >
-            Fill your bet Mark as many numbers as you want up to a maximum of 50. Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.
+            Fill your bet Mark as many numbers as you want up to a maximum of 50.
+            Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.
           </S.Text>
         </S.Box>
 
@@ -79,6 +81,10 @@ function NewBetPage () {
           <Button variant='outline'>Clear game</Button>
           <Button style={{ marginLeft: 'auto' }}><CartIcon size={25} /> Add to cart</Button>
         </S.Box>
+      </S.Box>
+
+      <S.Box style={{ gridColumn: '3/-1' }}>
+        <Cart />
       </S.Box>
     </S.Content>
   )
