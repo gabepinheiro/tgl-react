@@ -38,8 +38,8 @@ export const ButtonLinkWrapper = styled.div`
 
 export const Content = styled.div`
   display: grid;
-  grid-template-columns: max-content 2fr 1fr;
-  grid-gap: 4.5rem;
+  grid-template-columns: max-content 1fr 335px;
+  grid-gap: 5.0rem;
 `
 
 export const Box = styled.div``
