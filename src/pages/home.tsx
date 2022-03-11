@@ -56,6 +56,12 @@ function HomePage () {
             <GameName>Lotofácil</GameName>
           </GameCardContent>
         </GameCardContainer>
+        <GameCardContainer color='#7F3992' size='medium'>
+          <GameCardContent>
+            <GameNumbers>01,02,04,05,06,07,09,15,17,20,21,22,23,24,25</GameNumbers>
+            <GameName>Lotofácil</GameName>
+          </GameCardContent>
+        </GameCardContainer>
         <GameCardContainer color='#01AC66'>
           <GameCardContent>
             <GameNumbers>01,02,04,05,06,07,09,15,17,20,21,22,23,24,25</GameNumbers>

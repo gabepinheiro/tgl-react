@@ -2,15 +2,28 @@ import styled, { css } from 'styled-components'
 
 type WrapperProps = {
   color: string
+  size: 'medium' | 'large'
+}
+
+const Modifiers = {
+  medium: () => css`
+    font-size: 1.65rem;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid currentColor;
+  `,
+  large: () => css`
+    padding-left: 1.5rem;
+    font-size: 2.0rem;
+    border-left: 6px solid currentColor;
+  `,
 }
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ color }) => css`
+  ${({ color, size }) => css`
     color: ${color};
-    border-left: 6px solid ${color};
     border-radius: 4px 0 0 4px;
-    padding-left: 1.5rem;
-    font-size: 2.0rem;
+
+    ${!!size && Modifiers[size]}
   `}
 `
 
@@ -24,7 +37,6 @@ export const GameName = styled.p`
   font-weight: bold;
   font-style: italic;
   color: currentColor;
-  font-size: 2.0rem;
 `
 
 export const GameNumbers = styled.p`
@@ -37,7 +49,6 @@ export const GameNumbers = styled.p`
 
 const mixin = css`
   color: ${({ theme }) => theme.colors.gray500};
-  font-size: 1.7rem;
 `
 
 export const GameDate = styled.span`
