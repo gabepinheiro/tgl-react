@@ -61,6 +61,8 @@ const authSlice = createSlice({
       const { id, email, name } = user
       state.user = { id, email, name }
       state.isAuthenticated = true
+      state.isFetching = false
+      state.error = null
     },
     [login.rejected.type]: (state, action) => {
       state.error = action.payload

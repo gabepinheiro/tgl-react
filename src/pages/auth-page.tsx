@@ -2,6 +2,7 @@ import { FormEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { login, selectAuth } from '@/features/auth-slice'
+import { toast } from 'react-toastify'
 
 import { Form } from '@/components/form'
 import { Input } from '@/components/input'
@@ -26,17 +27,19 @@ function AuthPage () {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  console.log(user)
-
   useEffect(() => {
     if (user) {
-      return navigate('/')
+      toast.success('Autenticado com sucesso.', {
+        onClose: () => {
+          navigate('/')
+        },
+      })
     }
   }, [user, navigate])
 
   useEffect(() => {
     if (error && !isFetching) {
-      return alert(error.message)
+      toast.error(`${error.message}`)
     }
   }, [error, isFetching])
 
