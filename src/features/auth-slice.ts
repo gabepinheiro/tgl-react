@@ -34,9 +34,9 @@ export const login = createAsyncThunk(
   async (loginData: LoginData, { rejectWithValue }) => {
     try {
       const res = await api.post('/login', loginData)
-
-      api.defaults.headers.common.Authorization =
-          res.data.token.token
+      const token = res.data.token
+      api.defaults.headers.common.Authorization = token.token
+      localStorage.setItem('@tgl/authentication', JSON.stringify(token))
 
       return res.data
     } catch (error) {
