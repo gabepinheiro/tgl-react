@@ -1,8 +1,17 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, Navigate, useLocation } from 'react-router-dom'
 
 import * as S from './styles'
 
 const PublicPage = () => {
+  const location = useLocation()
+
+  const tokenFromLocalStorage = localStorage.getItem('@tgl/authentication')
+  if (location.pathname === '/authentication') {
+    if (tokenFromLocalStorage) {
+      return <Navigate to='/' />
+    }
+  }
+
   return (
     <S.Container>
       <S.Box>
