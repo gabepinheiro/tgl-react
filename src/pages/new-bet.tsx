@@ -1,3 +1,7 @@
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { fetchGames, selectGames, selectGame } from '@/features/games-slice'
+
 import { Button } from '@/components/button'
 import { Cart } from '@/components/cart'
 import { GameButton } from '@/components/game-button'
@@ -7,7 +11,25 @@ import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
 import * as S from './styles'
 
 function NewBetPage () {
-  const numbers = new Array(60).fill('').map((...args) => args[1] + 1)
+  const {
+    types: games,
+    isLoading,
+    selectedGame,
+  } = useAppSelector(selectGames)
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchGames())
+  }, [dispatch])
+
+  // TODO: Make Loading (Spinner) component
+  if (isLoading) {
+    return <p>Carregando..</p>
+  }
+
+  const numbers =
+    new Array(selectedGame?.range).fill(null).map((_, index) => index + 1)
 
   return (
     <S.Content>
@@ -16,9 +38,8 @@ function NewBetPage () {
           upcase
           style={{ marginBottom: '3.0rem' }}
         >
-          New bet <span>for Mega-Sena</span>
+          New bet <span>for {selectedGame!.type}</span>
         </S.Heading>
-
         <S.Box style={{ marginBottom: '2.8rem' }}>
           <S.Text
             style={{
@@ -31,12 +52,18 @@ function NewBetPage () {
             Choose game
           </S.Text>
           <S.Box style={{ display: 'flex', gap: '2.5rem' }}>
-            <GameButton color='#7F3992'>Lotofácil</GameButton>
-            <GameButton color='#01AC66' selected>Mega-Sena</GameButton>
-            <GameButton color='#F79C31'>Lotomania</GameButton>
+            {games.map(game => (
+              <GameButton
+                key={game.type}
+                color={game.color}
+                selected={game.selected}
+                onClick={() => dispatch(selectGame(game.id))}
+              >
+                {game.type}
+              </GameButton>
+            ))}
           </S.Box>
         </S.Box>
-
         <S.Box style={{ marginBottom: '2.6rem' }}>
           <S.Text
             style={{
@@ -54,11 +81,9 @@ function NewBetPage () {
             lineHeight: '2.4rem',
           }}
           >
-            Fill your bet Mark as many numbers as you want up to a maximum of 50.
-            Win by hitting 15, 16, 17, 18, 19, 20 or none of the 20 numbers drawn.
+            {selectedGame?.description}
           </S.Text>
         </S.Box>
-
         <S.Box style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -70,7 +95,6 @@ function NewBetPage () {
             <NumberButton key={number} number={number} />
           ))}
         </S.Box>
-
         <S.Box style={{
           display: 'flex',
           alignItems: 'center',
@@ -82,7 +106,6 @@ function NewBetPage () {
           <Button style={{ marginLeft: 'auto' }}><CartIcon size={25} /> Add to cart</Button>
         </S.Box>
       </S.Box>
-
       <S.Box style={{ gridColumn: '3/-1' }}>
         <Cart />
       </S.Box>
