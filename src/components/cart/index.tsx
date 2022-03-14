@@ -11,6 +11,7 @@ import {
 } from '../game-card'
 
 import * as S from './styles'
+import { getCurrencyFormatted } from '@/utils/formats'
 
 type CartProps = CartState
 
@@ -34,7 +35,7 @@ export const Cart = ({ items, totalValue }: CartProps) => {
                   </GameNumbers>
                   <S.GameNameAmountWrapper>
                     <GameName>{item.type}</GameName>
-                    <GameAmount>R$ {item.price}</GameAmount>
+                    <GameAmount>{getCurrencyFormatted(item.price)}</GameAmount>
                   </S.GameNameAmountWrapper>
                 </GameCardContent>
               </GameCardContainer>
@@ -43,7 +44,7 @@ export const Cart = ({ items, totalValue }: CartProps) => {
         </S.CartItems>
 
         <S.TotalAmount>
-          Cart <span>total: R$ {totalValue}</span>
+          Cart <span>total: {getCurrencyFormatted(totalValue)}</span>
         </S.TotalAmount>
       </S.Content>
       <S.ButtonSaveWrapper>
