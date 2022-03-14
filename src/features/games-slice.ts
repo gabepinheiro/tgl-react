@@ -13,7 +13,7 @@ export type Game = {
 }
 
 export type Games = {
-  'min_cart_value': number
+  minCartValue: number
   types: (Game & { selected: boolean })[]
 }
 
@@ -35,7 +35,7 @@ export const fetchGames = createAsyncThunk(
 )
 
 const initialState: GamesState = {
-  min_cart_value: 0,
+  minCartValue: 0,
   types: [],
   isLoading: true,
   selectedGame: null,
@@ -60,7 +60,7 @@ const gamesSlice = createSlice({
   },
   extraReducers: {
     [fetchGames.fulfilled.type]: (state, action) => {
-      state.min_cart_value = action.payload.min_cart_value
+      state.minCartValue = action.payload.min_cart_value
       state.types = action
         .payload
         .types
