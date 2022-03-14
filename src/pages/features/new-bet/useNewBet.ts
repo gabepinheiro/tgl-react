@@ -3,6 +3,7 @@ import { selectCart } from '@/features/cart-slice'
 import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { betInitialState, betReducer, ActionTypes } from './reducer'
+import { toast } from 'react-toastify'
 
 export const useNewBet = () => {
   const {
@@ -40,25 +41,33 @@ export const useNewBet = () => {
       }
 
       if (currentBet.remaining === 0) {
-        return alert('Jogo completo')
+        return toast.warn(`Todos os ${selectedGame?.max_number} números do jogo já foram selecionados!`)
       }
 
       return currentBetDispatch({ type: ActionTypes.ADD_NUMBER, payload: num })
     }
   }
 
+  const getMsgRemainingNumbers = () => {
+    const remaining = currentBet.remaining
+    const verbe = remaining > 1 ? 'Restam' : 'Resta'
+    const SingularOrPlural = remaining > 1 ? 'números' : 'número'
+
+    return `${verbe} ${remaining} ${SingularOrPlural} para completar o jogo!`
+  }
+
   const onAddToCart = () => {
     if (currentBet.remaining) {
-      return alert(`Ainda restam ${currentBet.remaining} números para completar o jogo!`)
+      return toast.warn(getMsgRemainingNumbers())
     }
 
-    console.log('Jogo adicionado com succeso:', currentBet.numbers)
+    toast.success('Jogo adicionado no carrinho.')
     currentBetDispatch({ type: ActionTypes.CLEAR_GAME, payload: selectedGame?.max_number })
   }
 
   const onClearGame = () => {
     if (!currentBet.numbers.length) {
-      return alert('O jogo já está limpo')
+      return toast.warn('O jogo já está limpo')
     }
     currentBetDispatch({ type: ActionTypes.CLEAR_GAME, payload: selectedGame?.max_number })
   }
@@ -97,7 +106,8 @@ export const useNewBet = () => {
     const currentNumbers = [...currentBet.numbers]
 
     if (qtdSelectedNumbers === maxNumber) {
-      return alert(`Todos os ${maxNumber} números do jogo já foram selecionados!`)
+      toast.warn(`Todos os ${maxNumber} números do jogo já foram selecionados!`)
+      return
     }
 
     if (qtdSelectedNumbers < maxNumber) {
