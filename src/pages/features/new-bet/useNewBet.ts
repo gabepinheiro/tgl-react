@@ -3,6 +3,8 @@ import { selectCart, addItemToCart, deleteItemCart } from '@/features/cart-slice
 import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { betInitialState, betReducer, ActionTypes } from './reducer'
+import { v4 as uuid } from 'uuid'
+
 import { toast } from 'react-toastify'
 
 export const useNewBet = () => {
@@ -64,7 +66,7 @@ export const useNewBet = () => {
     }
 
     const game = {
-      id: String(Math.floor(Math.random() * 100)),
+      id: uuid(),
       game_id: selectedGame?.id!,
       numbers: currentBet.numbers.sort((a, b) => a - b),
       price: selectedGame?.price!,
