@@ -33,6 +33,7 @@ export const useNewBet = () => {
 
   const onToggleNumber = (num: number) => {
     return () => {
+      console.log('number:', num)
       const isNumberAdded = currentBet.numbers.includes(num)
       if (isNumberAdded) {
         return currentBetDispatch({ type: ActionTypes.REMOVE_NUMBER, payload: num })
@@ -62,6 +63,56 @@ export const useNewBet = () => {
     currentBetDispatch({ type: ActionTypes.CLEAR_GAME, payload: selectedGame?.max_number })
   }
 
+  const getRandomNumber = (range: number) => {
+    return Math.ceil(Math.random() * range)
+  }
+
+  const getRandomNumbersBet = (range: number, maxNumber: number) => {
+    let randomNumbers: number[] = []
+    while (randomNumbers.length < maxNumber) {
+      const random = getRandomNumber(range)
+      const index = randomNumbers.indexOf(random)
+
+      if (index === -1) {
+        randomNumbers.push(random || getRandomNumber(range))
+      } else {
+        // eslint-disable-next-line no-loop-func
+        randomNumbers = randomNumbers.filter(item => item !== randomNumbers[index])
+      }
+    }
+
+    return randomNumbers
+  }
+
+  function hasDuplicateNumberArrays (arrOne: number[], arrTwo: number[]) {
+    return arrOne.some(number => arrTwo.indexOf(number) !== -1)
+  }
+
+  const onCompleteGame = (): void => {
+    if (!selectedGame) return
+
+    const { range } = selectedGame
+    const maxNumber = selectedGame.max_number
+    const qtdSelectedNumbers = currentBet.numbers.length
+    const currentNumbers = [...currentBet.numbers]
+
+    if (qtdSelectedNumbers === maxNumber) {
+      return alert(`Todos os ${maxNumber} números do jogo já foram selecionados!`)
+    }
+
+    if (qtdSelectedNumbers < maxNumber) {
+      const remainingNumbers = currentBet.remaining
+      const randomNumbers = getRandomNumbersBet(range, remainingNumbers)
+      if (hasDuplicateNumberArrays(currentNumbers, randomNumbers)) {
+        return onCompleteGame()
+      }
+      currentBetDispatch({
+        type: ActionTypes.SET_NUMBERS,
+        payload: [...currentNumbers, ...randomNumbers],
+      })
+    }
+  }
+
   return {
     games,
     cartItems,
@@ -73,5 +124,6 @@ export const useNewBet = () => {
     onToggleNumber,
     onAddToCart,
     onClearGame,
+    onCompleteGame,
   }
 }

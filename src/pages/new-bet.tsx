@@ -20,6 +20,7 @@ function NewBetPage () {
     onAddToCart,
     onToggleNumber,
     onClearGame,
+    onCompleteGame,
   } = useNewBet()
 
   // TODO: Make Loading (Spinner) component
@@ -92,11 +93,11 @@ function NewBetPage () {
         >
           {numbers.map((number) => (
             <NumberButton
-              onClick={onToggleNumber(number + 1)}
+              onClick={onToggleNumber(number)}
               key={number}
               number={number}
               style={{
-                backgroundColor: currentBet.numbers.includes(number + 1)
+                backgroundColor: currentBet.numbers.includes(number)
                   ? selectedGame?.color
                   : theme.colors.cyan,
               }}
@@ -109,7 +110,7 @@ function NewBetPage () {
           gap: '1.6rem',
         }}
         >
-          <Button variant='outline'>Complete game</Button>
+          <Button variant='outline' onClick={onCompleteGame}>Complete game</Button>
           <Button variant='outline' onClick={onClearGame}>Clear game</Button>
           <Button
             style={{ marginLeft: 'auto' }}

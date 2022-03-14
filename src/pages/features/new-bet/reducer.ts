@@ -8,7 +8,8 @@ export enum ActionTypes {
    REMOVE_NUMBER,
    CLEAR_GAME,
    COMPLETE_GAME,
-   SET_REMAINING
+   SET_REMAINING,
+   SET_NUMBERS
 }
 
 type Action = { type: ActionTypes, payload?: any }
@@ -44,6 +45,12 @@ export const betReducer = (state: State, action: Action): State => {
       return {
         ...state,
         remaining: action.payload,
+      }
+    case ActionTypes.SET_NUMBERS:
+      return {
+        ...state,
+        numbers: action.payload,
+        remaining: 0,
       }
     default:
       return state
