@@ -1,6 +1,9 @@
+import { Cart as CartState } from '@/features/cart-slice'
+import { getCurrencyFormatted } from '@/utils/formats'
+
 import { ButtonLink } from '../button-link'
 import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
-import { Cart as CartState } from '@/features/cart-slice'
+import { BsTrash as DeleteIcon } from 'react-icons/bs'
 
 import {
   GameAmount,
@@ -11,11 +14,12 @@ import {
 } from '../game-card'
 
 import * as S from './styles'
-import { getCurrencyFormatted } from '@/utils/formats'
 
-type CartProps = CartState
+type CartProps = {
+  onDeleteItem: (id: string) => () => void
+} & CartState
 
-export const Cart = ({ items, totalValue }: CartProps) => {
+export const Cart = ({ items, totalValue, onDeleteItem }: CartProps) => {
   return (
     <S.Wrapper>
       <S.Content>
@@ -25,6 +29,9 @@ export const Cart = ({ items, totalValue }: CartProps) => {
           {!items && <p>Carinho vazio.</p>}
           {!!items && items.map(item => (
             <S.CartItem key={item.id}>
+              <S.ButtonDelete onClick={onDeleteItem(item.id)}>
+                <DeleteIcon size={27} />
+              </S.ButtonDelete>
               <GameCardContainer color={item.color} size='medium'>
                 <GameCardContent>
                   <GameNumbers>

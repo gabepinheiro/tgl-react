@@ -43,6 +43,9 @@ export const CartItems = styled.ul`
 `
 
 export const CartItem = styled.li`
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
   overflow-wrap: break-word;
   &:not(:last-child) {
     margin-bottom: 3.2rem;
@@ -58,6 +61,21 @@ export const TotalAmount = styled.h3`
   span {
     font-weight: 300;
     font-style: normal;
+  }
+`
+
+export const ButtonDelete = styled.button`
+  border: 0;
+  background-color: transparent;
+
+  svg {
+    color: #868686;
+  }
+
+  &:hover {
+    svg {
+      color: red;
+    }
   }
 `
 

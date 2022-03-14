@@ -21,6 +21,7 @@ function NewBetPage () {
     onToggleNumber,
     onClearGame,
     onCompleteGame,
+    onDeleteItemCart,
   } = useNewBet()
 
   // TODO: Make Loading (Spinner) component
@@ -121,7 +122,11 @@ function NewBetPage () {
         </S.Box>
       </S.Box>
       <S.Box style={{ gridColumn: '3/-1' }}>
-        <Cart items={cart.items} totalValue={cart.totalValue} />
+        <Cart
+          items={cart.items}
+          totalValue={cart.totalValue}
+          onDeleteItem={onDeleteItemCart}
+        />
       </S.Box>
     </S.Content>
   )

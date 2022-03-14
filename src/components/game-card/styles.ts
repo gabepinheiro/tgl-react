@@ -7,9 +7,13 @@ type WrapperProps = {
 
 const Modifiers = {
   medium: () => css`
-    font-size: 1.65rem;
+    font-size: 1.6rem;
     padding: 1rem 1.2rem;
     border-left: 4px solid currentColor;
+
+    ${GameCardContent} {
+      gap: 0.6rem;
+    }
   `,
   large: () => css`
     padding-left: 1.5rem;

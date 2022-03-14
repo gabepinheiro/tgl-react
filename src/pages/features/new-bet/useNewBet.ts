@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react'
-import { selectCart, addItemToCart } from '@/features/cart-slice'
+import { selectCart, addItemToCart, deleteItemCart } from '@/features/cart-slice'
 import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { betInitialState, betReducer, ActionTypes } from './reducer'
@@ -141,6 +141,12 @@ export const useNewBet = () => {
     }
   }
 
+  const onDeleteItemCart = (id: string) => {
+    return () => {
+      appDispatch(deleteItemCart(id))
+    }
+  }
+
   return {
     games,
     cart,
@@ -153,5 +159,6 @@ export const useNewBet = () => {
     onAddToCart,
     onClearGame,
     onCompleteGame,
+    onDeleteItemCart,
   }
 }

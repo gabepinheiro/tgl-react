@@ -33,14 +33,19 @@ const cartSlice = createSlice({
       state.items = [payload, ...state.items]
       state.totalValue += payload.price
     },
-    removeItemCart (state, { payload }: PayloadAction<string>) {
+    deleteItemCart (state, { payload }: PayloadAction<string>) {
+      if (state.items?.length === 1) {
+        state.items = null
+        return
+      }
+
       const filteredItems = state.items!.filter(item => item.id !== payload)
       state.items = filteredItems
     },
   },
 })
 
-export const { addItemToCart, removeItemCart } = cartSlice.actions
+export const { addItemToCart, deleteItemCart } = cartSlice.actions
 export const selectCart = (state: RootState) => state.cart
 
 export default cartSlice.reducer
