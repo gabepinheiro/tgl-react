@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type CartItem = {
   id: string
-  game_id: number
+  'game_id': number
   numbers: number[]
   color: string
   price: number
@@ -23,7 +23,12 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart (state, { payload }: PayloadAction<CartItem>) {
-      state.items?.push(payload)
+      if (state.items === null) {
+        state.items = [payload]
+        return
+      }
+      state.items = [payload, ...state.items]
+      console.log(state.items)
     },
     removeItemCart (state, { payload }: PayloadAction<string>) {
       const filteredItems = state.items!.filter(item => item.id !== payload)

@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react'
-import { selectCart } from '@/features/cart-slice'
+import { selectCart, addItemToCart } from '@/features/cart-slice'
 import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { betInitialState, betReducer, ActionTypes } from './reducer'
@@ -11,14 +11,16 @@ export const useNewBet = () => {
     isLoading,
     selectedGame,
   } = useAppSelector(selectGames)
+
   const { items: cartItems } = useAppSelector(selectCart)
-  const gamesDispatch = useAppDispatch()
+
+  const appDispatch = useAppDispatch()
 
   const [currentBet, currentBetDispatch] = useReducer(betReducer, betInitialState)
 
   useEffect(() => {
-    gamesDispatch(fetchGames())
-  }, [gamesDispatch])
+    appDispatch(fetchGames())
+  }, [appDispatch])
 
   useEffect(() => {
     currentBetDispatch({ type: ActionTypes.CLEAR_GAME })
@@ -29,7 +31,7 @@ export const useNewBet = () => {
   }, [currentBetDispatch, selectedGame])
 
   const onSelectedGame = (id: number) => {
-    return () => { gamesDispatch(selectGame(id)) }
+    return () => { appDispatch(selectGame(id)) }
   }
 
   const onToggleNumber = (num: number) => {
@@ -61,15 +63,31 @@ export const useNewBet = () => {
       return toast.warn(getMsgRemainingNumbers())
     }
 
+    const game = {
+      id: String(Math.floor(Math.random() * 100)),
+      game_id: selectedGame?.id!,
+      numbers: currentBet.numbers.sort((a, b) => a - b),
+      price: selectedGame?.price!,
+      type: selectedGame?.type!,
+      color: selectedGame?.color!,
+    }
+
+    appDispatch(addItemToCart(game))
     toast.success('Jogo adicionado no carrinho.')
-    currentBetDispatch({ type: ActionTypes.CLEAR_GAME, payload: selectedGame?.max_number })
+    currentBetDispatch({
+      type: ActionTypes.CLEAR_GAME,
+      payload: selectedGame?.max_number,
+    })
   }
 
   const onClearGame = () => {
     if (!currentBet.numbers.length) {
       return toast.warn('O jogo já está limpo')
     }
-    currentBetDispatch({ type: ActionTypes.CLEAR_GAME, payload: selectedGame?.max_number })
+    currentBetDispatch({
+      type: ActionTypes.CLEAR_GAME,
+      payload: selectedGame?.max_number,
+    })
   }
 
   const getRandomNumber = (range: number) => {
