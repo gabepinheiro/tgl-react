@@ -1,6 +1,6 @@
 import { api } from '@/services/api'
 import { RootState } from '@/store'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 
 export type LoginData = {
@@ -47,13 +47,12 @@ export const login = createAsyncThunk<
       api.defaults.headers.common.Authorization = authData.token
       localStorage.setItem('@tgl/authentication', JSON.stringify(authData))
 
-      return res.data
+      return res.data.user
     } catch (err) {
       const error = err as AxiosError<ErrorData>
       if (!error.response) {
         throw err
       }
-
       return rejectWithValue(error.response.data)
     }
   },
@@ -63,9 +62,19 @@ const authSlice = createSlice({
   name: 'authentication',
   initialState,
   reducers: {
+    setIsFetching (state, { payload }: PayloadAction<boolean>) {
+      state.isFetching = payload
+    },
+    setError (state, { payload }: PayloadAction<ErrorData | null>) {
+      state.error = payload
+    },
+    setIsAuthenticated (state, { payload }: PayloadAction<boolean>) {
+      state.isAuthenticated = payload
+    },
     logout (state) {
       state.user = null
       state.isAuthenticated = false
+      state.isFetching = false
       state.error = null
     },
   },
@@ -75,7 +84,7 @@ const authSlice = createSlice({
     })
       .addCase(login.fulfilled, (state, { payload }) => {
         state.user = payload
-        state.isFetching = false
+        state.isAuthenticated = true
       })
       .addCase(login.rejected, (state, action) => {
         if (action.payload) {
@@ -83,11 +92,15 @@ const authSlice = createSlice({
         } else {
           state.error = { message: action.error.message! }
         }
-        state.isFetching = false
       })
   },
 })
 
-export const { logout } = authSlice.actions
+export const {
+  logout,
+  setIsFetching,
+  setIsAuthenticated,
+  setError,
+} = authSlice.actions
 export const selectAuth = (state: RootState) => state.auth
 export default authSlice.reducer

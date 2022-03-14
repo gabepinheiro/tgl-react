@@ -1,7 +1,7 @@
 import { FormEvent, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { login, selectAuth } from '@/features/auth-slice'
+import { login, selectAuth, setIsFetching, setError } from '@/features/auth-slice'
 import { toast } from 'react-toastify'
 
 import { Form } from '@/components/form'
@@ -29,19 +29,22 @@ function AuthPage () {
 
   useEffect(() => {
     if (user) {
-      toast.success('Autenticado com sucesso.', {
-        onClose: () => {
-          navigate('/')
+      toast.success(`Seja bem vindo, ${user.name}`)
+      dispatch(setIsFetching(false))
+      navigate('/')
+    }
+  }, [user, dispatch, navigate])
+
+  useEffect(() => {
+    if (error) {
+      toast.error(`${error.message}`, {
+        onClose () {
+          dispatch(setError(null))
+          dispatch(setIsFetching(false))
         },
       })
     }
-  }, [user, navigate])
-
-  useEffect(() => {
-    if (error && !isFetching) {
-      toast.error(`${error.message}`)
-    }
-  }, [error, isFetching])
+  }, [error, dispatch])
 
   const handleSubmit = (e: OnSubmitEvent) => {
     e.preventDefault()
@@ -65,6 +68,7 @@ function AuthPage () {
             as='button'
             color='greenLight'
             size='large'
+            disabled={isFetching}
           >
             Log In <ArrowRightIcon />
           </ButtonLink>
