@@ -17,9 +17,15 @@ import * as S from './styles'
 
 type CartProps = {
   onDeleteItem: (id: string) => () => void
+  onSaveBet: () => void
 } & CartState
 
-export const Cart = ({ items, totalValue, onDeleteItem }: CartProps) => {
+export const Cart = ({
+  items,
+  totalValue,
+  onDeleteItem,
+  onSaveBet,
+}: CartProps) => {
   return (
     <S.Wrapper>
       <S.Content>
@@ -55,7 +61,7 @@ export const Cart = ({ items, totalValue, onDeleteItem }: CartProps) => {
         </S.TotalAmount>
       </S.Content>
       <S.ButtonSaveWrapper>
-        <ButtonLink size='large'>
+        <ButtonLink size='large' onClick={onSaveBet}>
           Save <ArrowRightIcon />
         </ButtonLink>
       </S.ButtonSaveWrapper>

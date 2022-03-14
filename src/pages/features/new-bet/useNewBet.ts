@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react'
+import { getCurrencyFormatted } from '@/utils/formats'
 import { selectCart, addItemToCart, deleteItemCart } from '@/features/cart-slice'
 import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
@@ -9,6 +10,7 @@ import { toast } from 'react-toastify'
 
 export const useNewBet = () => {
   const {
+    minCartValue,
     types: games,
     isLoading,
     selectedGame,
@@ -149,6 +151,14 @@ export const useNewBet = () => {
     }
   }
 
+  const onSaveBet = () => {
+    if (cart.totalValue < minCartValue) {
+      return toast.error(`Valor minímo do carrinho: ${getCurrencyFormatted(minCartValue)}`)
+    }
+
+    toast.success('Aposta realizada com sucesso!')
+  }
+
   return {
     games,
     cart,
@@ -162,5 +172,6 @@ export const useNewBet = () => {
     onClearGame,
     onCompleteGame,
     onDeleteItemCart,
+    onSaveBet,
   }
 }

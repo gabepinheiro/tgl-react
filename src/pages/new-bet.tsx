@@ -22,6 +22,7 @@ function NewBetPage () {
     onClearGame,
     onCompleteGame,
     onDeleteItemCart,
+    onSaveBet,
   } = useNewBet()
 
   // TODO: Make Loading (Spinner) component
@@ -126,6 +127,7 @@ function NewBetPage () {
           items={cart.items}
           totalValue={cart.totalValue}
           onDeleteItem={onDeleteItemCart}
+          onSaveBet={onSaveBet}
         />
       </S.Box>
     </S.Content>
