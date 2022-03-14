@@ -1,4 +1,4 @@
-import { useNewBet } from './features/useNewBet'
+import { useNewBet } from './features/new-bet/useNewBet'
 
 import { Button } from '@/components/button'
 import { Cart } from '@/components/cart'
@@ -7,14 +7,19 @@ import { NumberButton } from '@/components/number-button'
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
 
 import * as S from './styles'
+import { theme } from '@/styles/theme'
 
 function NewBetPage () {
   const {
     games,
     cartItems,
+    currentBet,
     isLoading,
     selectedGame,
     onSelectedGame,
+    onAddToCart,
+    onToggleNumber,
+    onClearGame,
   } = useNewBet()
 
   // TODO: Make Loading (Spinner) component
@@ -86,7 +91,16 @@ function NewBetPage () {
         }}
         >
           {numbers.map((number) => (
-            <NumberButton key={number} number={number} />
+            <NumberButton
+              onClick={onToggleNumber(number + 1)}
+              key={number}
+              number={number}
+              style={{
+                backgroundColor: currentBet.numbers.includes(number + 1)
+                  ? selectedGame?.color
+                  : theme.colors.cyan,
+              }}
+            />
           ))}
         </S.Box>
         <S.Box style={{
@@ -96,8 +110,13 @@ function NewBetPage () {
         }}
         >
           <Button variant='outline'>Complete game</Button>
-          <Button variant='outline'>Clear game</Button>
-          <Button style={{ marginLeft: 'auto' }}><CartIcon size={25} /> Add to cart</Button>
+          <Button variant='outline' onClick={onClearGame}>Clear game</Button>
+          <Button
+            style={{ marginLeft: 'auto' }}
+            onClick={onAddToCart}
+          >
+            <CartIcon size={25} /> Add to cart
+          </Button>
         </S.Box>
       </S.Box>
       <S.Box style={{ gridColumn: '3/-1' }}>
