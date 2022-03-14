@@ -1,7 +1,7 @@
 import { api } from '@/services/api'
 import { RootState } from '@/store'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { AxiosError } from 'axios'
 
 export type LoginData = {
   email: string
@@ -14,11 +14,15 @@ export type User = {
   name: string
 }
 
+export type ErrorData = {
+  message: string
+}
+
 export type AuthState = {
   user: User | null
   isFetching: boolean
   isAuthenticated: boolean
-  error: { message: string } | null
+  error: ErrorData | null
 }
 
 const initialState: AuthState = {
@@ -26,24 +30,31 @@ const initialState: AuthState = {
   isAuthenticated: false,
   error: null,
   isFetching: false,
-
 }
 
-export const login = createAsyncThunk(
+export const login = createAsyncThunk<
+  User,
+  LoginData,
+  {
+    rejectValue: ErrorData
+  }
+>(
   'authentication/login',
-  async (loginData: LoginData, { rejectWithValue }) => {
+  async (loginData, { rejectWithValue }) => {
     try {
       const res = await api.post('/login', loginData)
-      const token = res.data.token
-      api.defaults.headers.common.Authorization = token.token
-      localStorage.setItem('@tgl/authentication', JSON.stringify(token))
+      const authData = res.data.token
+      api.defaults.headers.common.Authorization = authData.token
+      localStorage.setItem('@tgl/authentication', JSON.stringify(authData))
 
       return res.data
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data)
+    } catch (err) {
+      const error = err as AxiosError<ErrorData>
+      if (!error.response) {
+        throw err
       }
-      return rejectWithValue(error)
+
+      return rejectWithValue(error.response.data)
     }
   },
 )
@@ -58,22 +69,22 @@ const authSlice = createSlice({
       state.error = null
     },
   },
-  extraReducers: {
-    [login.pending.type]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(login.pending, (state) => {
       state.isFetching = true
-    },
-    [login.fulfilled.type]: (state, action) => {
-      const { user } = action.payload
-      const { id, email, name } = user
-      state.user = { id, email, name }
-      state.isAuthenticated = true
-      state.isFetching = false
-      state.error = null
-    },
-    [login.rejected.type]: (state, action) => {
-      state.error = action.payload
-      state.isFetching = false
-    },
+    })
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.user = payload
+        state.isFetching = false
+      })
+      .addCase(login.rejected, (state, action) => {
+        if (action.payload) {
+          state.error = action.payload
+        } else {
+          state.error = { message: action.error.message! }
+        }
+        state.isFetching = false
+      })
   },
 })
 
