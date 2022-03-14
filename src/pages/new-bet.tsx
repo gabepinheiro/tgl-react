@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { fetchGames, selectGames, selectGame } from '@/features/games-slice'
+import { useNewBet } from './features/useNewBet'
 
 import { Button } from '@/components/button'
 import { Cart } from '@/components/cart'
@@ -9,22 +7,15 @@ import { NumberButton } from '@/components/number-button'
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
 
 import * as S from './styles'
-import { selectCart } from '@/features/cart-slice'
 
 function NewBetPage () {
   const {
-    types: games,
+    games,
+    cartItems,
     isLoading,
     selectedGame,
-  } = useAppSelector(selectGames)
-
-  const { items } = useAppSelector(selectCart)
-
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(fetchGames())
-  }, [dispatch])
+    onSelectedGame,
+  } = useNewBet()
 
   // TODO: Make Loading (Spinner) component
   if (isLoading) {
@@ -60,7 +51,7 @@ function NewBetPage () {
                 key={game.type}
                 color={game.color}
                 selected={game.selected}
-                onClick={() => dispatch(selectGame(game.id))}
+                onClick={onSelectedGame(game.id)}
               >
                 {game.type}
               </GameButton>
@@ -110,7 +101,7 @@ function NewBetPage () {
         </S.Box>
       </S.Box>
       <S.Box style={{ gridColumn: '3/-1' }}>
-        <Cart items={items} />
+        <Cart items={cartItems} />
       </S.Box>
     </S.Content>
   )
