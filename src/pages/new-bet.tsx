@@ -12,7 +12,7 @@ import { theme } from '@/styles/theme'
 function NewBetPage () {
   const {
     games,
-    cartItems,
+    cart,
     currentBet,
     isLoading,
     selectedGame,
@@ -121,7 +121,7 @@ function NewBetPage () {
         </S.Box>
       </S.Box>
       <S.Box style={{ gridColumn: '3/-1' }}>
-        <Cart items={cartItems} />
+        <Cart items={cart.items} totalValue={cart.totalValue} />
       </S.Box>
     </S.Content>
   )

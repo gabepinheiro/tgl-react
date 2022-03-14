@@ -12,7 +12,7 @@ export const useNewBet = () => {
     selectedGame,
   } = useAppSelector(selectGames)
 
-  const { items: cartItems } = useAppSelector(selectCart)
+  const cart = useAppSelector(selectCart)
 
   const appDispatch = useAppDispatch()
 
@@ -143,7 +143,7 @@ export const useNewBet = () => {
 
   return {
     games,
-    cartItems,
+    cart,
     currentBet,
     currentBetDispatch,
     isLoading,

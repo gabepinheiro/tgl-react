@@ -1,6 +1,6 @@
 import { ButtonLink } from '../button-link'
 import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
-import { CartItem } from '@/features/cart-slice'
+import { Cart as CartState } from '@/features/cart-slice'
 
 import {
   GameAmount,
@@ -12,11 +12,9 @@ import {
 
 import * as S from './styles'
 
-type CartProps = {
-  items: CartItem[] | null
-}
+type CartProps = CartState
 
-export const Cart = ({ items }: CartProps) => {
+export const Cart = ({ items, totalValue }: CartProps) => {
   return (
     <S.Wrapper>
       <S.Content>
@@ -45,7 +43,7 @@ export const Cart = ({ items }: CartProps) => {
         </S.CartItems>
 
         <S.TotalAmount>
-          Cart <span>total: R$ 0,00</span>
+          Cart <span>total: R$ {totalValue}</span>
         </S.TotalAmount>
       </S.Content>
       <S.ButtonSaveWrapper>
