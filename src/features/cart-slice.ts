@@ -36,11 +36,16 @@ const cartSlice = createSlice({
     deleteItemCart (state, { payload }: PayloadAction<string>) {
       if (state.items?.length === 1) {
         state.items = null
+        state.totalValue = 0
         return
       }
 
-      const filteredItems = state.items!.filter(item => item.id !== payload)
-      state.items = filteredItems
+      const item = state.items?.find(item => item.id === payload)
+      if (item) {
+        const filteredItems = state.items!.filter(item => item.id !== payload)
+        state.totalValue -= item.price
+        state.items = filteredItems
+      }
     },
   },
 })
