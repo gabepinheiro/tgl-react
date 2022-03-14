@@ -9,6 +9,7 @@ import { NumberButton } from '@/components/number-button'
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
 
 import * as S from './styles'
+import { selectCart } from '@/features/cart-slice'
 
 function NewBetPage () {
   const {
@@ -16,6 +17,8 @@ function NewBetPage () {
     isLoading,
     selectedGame,
   } = useAppSelector(selectGames)
+
+  const { items } = useAppSelector(selectCart)
 
   const dispatch = useAppDispatch()
 
@@ -107,7 +110,7 @@ function NewBetPage () {
         </S.Box>
       </S.Box>
       <S.Box style={{ gridColumn: '3/-1' }}>
-        <Cart />
+        <Cart items={items} />
       </S.Box>
     </S.Content>
   )

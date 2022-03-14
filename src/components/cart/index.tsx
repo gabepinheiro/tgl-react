@@ -1,7 +1,7 @@
 import { ButtonLink } from '../button-link'
 import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
+import { CartItem } from '@/features/cart-slice'
 
-import * as S from './styles'
 import {
   GameAmount,
   GameCardContainer,
@@ -10,36 +10,22 @@ import {
   GameNumbers,
 } from '../game-card'
 
-const items = [
-  {
-    name: 'Lotofácil',
-    amount: 2.50,
-    numbers: [1, 2, 4, 5, 6, 7, 9, 15, 17, 20, 21, 22, 23, 24, 25],
-    color: '#7F3992',
-  },
-  {
-    name: 'Mega-Sena',
-    amount: 2.50,
-    numbers: [1, 2, 4, 5, 6, 7, 9, 15, 17, 20, 21, 22, 23, 24, 25],
-    color: '#01AC66',
-  },
-  {
-    name: 'Lotomania',
-    amount: 2.50,
-    numbers: [1, 2, 4, 5, 6, 7, 9, 15, 17, 20, 21, 22, 23, 24, 25],
-    color: '#F79C31',
-  },
-]
+import * as S from './styles'
 
-export const Cart = () => {
+type CartProps = {
+  items: CartItem[] | null
+}
+
+export const Cart = ({ items }: CartProps) => {
   return (
     <S.Wrapper>
       <S.Content>
         <S.Heading>Cart</S.Heading>
 
         <S.CartItems>
-          {items.map(item => (
-            <S.CartItem key={item.name}>
+          {!items && <p>Carinho vazio.</p>}
+          {!!items && items.map(item => (
+            <S.CartItem key={item.id}>
               <GameCardContainer color={item.color} size='medium'>
                 <GameCardContent>
                   <GameNumbers>
@@ -49,8 +35,8 @@ export const Cart = () => {
                       .join(', ')}
                   </GameNumbers>
                   <S.GameNameAmountWrapper>
-                    <GameName>{item.name}</GameName>
-                    <GameAmount>R$ {item.amount}</GameAmount>
+                    <GameName>{item.type}</GameName>
+                    <GameAmount>R$ {item.price}</GameAmount>
                   </S.GameNameAmountWrapper>
                 </GameCardContent>
               </GameCardContainer>
@@ -59,7 +45,7 @@ export const Cart = () => {
         </S.CartItems>
 
         <S.TotalAmount>
-          Cart <span>total: R$ 7,00</span>
+          Cart <span>total: R$ 0,00</span>
         </S.TotalAmount>
       </S.Content>
       <S.ButtonSaveWrapper>
