@@ -76,7 +76,13 @@ function HomePage () {
           </S.Box>
 
           <S.Box
-            style={{ gridColumn: '1/-1', display: 'flex', flexDirection: 'column', gap: '3.0rem' }}
+            style={{
+              gridColumn: '1/-1',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '3.0rem',
+              maxHeight: '60vh',
+            }}
           >
             {!bets.length && <h3>Você ainda não possui jogos cadastrados.</h3>}
 

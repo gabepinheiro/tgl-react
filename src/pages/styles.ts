@@ -42,6 +42,18 @@ export const Content = styled.div`
   grid-gap: 5.0rem;
 `
 
-export const Box = styled.div``
+export const Box = styled.div`
+  overflow-y: scroll;
+
+   &::-webkit-scrollbar {
+    width: 0.4rem;
+    overflow: hidden;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ADC0C4;
+    border-radius: 0.4rem;
+  }
+`
 
 export const Text = styled.p``
