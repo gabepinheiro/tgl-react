@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { fetchBets, selectBets } from '@/features/bets-slice'
 import { selectGames, selectGame, fetchGames } from '@/features/games-slice'
+import { getCurrencyFormatted } from '@/utils/formats'
 
 import { ButtonLink } from '@/components/button-link'
 import { GameButton } from '@/components/game-button'
@@ -94,7 +95,7 @@ function HomePage () {
                           .toLocaleDateString('pt-BR')
                         )}
                       </GameDate> {' - '}
-                      <GameAmount>R$ {bet.price}</GameAmount>
+                      <GameAmount>{getCurrencyFormatted(bet.price)}</GameAmount>
                     </div>
                     <GameName>{bet.type.type}</GameName>
                   </GameCardContent>
