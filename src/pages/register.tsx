@@ -1,5 +1,8 @@
-import { FormEvent } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import { api } from '@/services/api'
 import axios from 'axios'
 
@@ -15,47 +18,70 @@ import { toast } from 'react-toastify'
 
 import * as S from './styles'
 
-type OnSubmitEvent = FormEvent<HTMLFormElement> & {
-  currentTarget: {
-    name: HTMLInputElement,
-    email: HTMLInputElement,
-    password: HTMLInputElement
-  }
+type FormInputs = {
+  name: string,
+  email: string,
+  password: string
 }
+
+const schema = yup.object({
+  name: yup.string().required('Campo de nome é obrigatório'),
+  email: yup.string().email().required('Campo de email é obrigatório'),
+  password: yup.string().min(6).required('Campo de senha é obrigatório'),
+})
 
 function RegisterPage () {
   const navigate = useNavigate()
 
-  const handleSubmit = async (e: OnSubmitEvent) => {
-    e.preventDefault()
-    const { name, email, password } = e.currentTarget
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors },
+    reset,
+  } = useForm<FormInputs>({
+    resolver: yupResolver(schema),
+  })
 
+  useEffect(() => {
+    formErrors.name && toast.error(formErrors.name.message)
+    formErrors.email && toast.error(formErrors.email.message)
+    formErrors.password && toast.error(formErrors.password.message)
+  }, [formErrors])
+
+  const onSubmit = async (data: FormInputs) => {
+    const { name, email, password } = data
     try {
       const res = await api.post('/user/create', {
-        name: name.value,
-        email: email.value,
-        password: password.value,
+        name,
+        email,
+        password,
       })
 
-      toast.success('Registro realizado com sucesso!', {
-        onClose: () => {
-          navigate('/authentication')
-        },
-      })
+      if (res.status === 200) {
+        toast.success('Registro realizado com sucesso!', {
+          onClose: () => {
+            navigate('/authentication')
+          },
+        })
+      }
+
+      reset()
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data.error.message)
+        return toast.error(error.response?.data.error.message)
       }
+      const err = error as Error
+      toast.error(err.message)
     }
   }
 
   return (
     <>
       <S.Heading size='large'>Registration</S.Heading>
-      <Form onSubmit={handleSubmit}>
-        <Input type='text' placeholder='Name' id='name' />
-        <Input type='email' placeholder='Email' id='email' />
-        <Input type='password' placeholder='Password' id='password' />
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input type='text' placeholder='Name' {...register('name')} />
+        <Input type='email' placeholder='Email' {...register('email')} />
+        <Input type='password' placeholder='Password' {...register('password')} />
 
         <S.ButtonLinkWrapper>
           <ButtonLink
