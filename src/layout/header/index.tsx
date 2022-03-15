@@ -1,5 +1,7 @@
-import { ButtonLink } from '@/components/button-link'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/store/hooks'
+
+import { ButtonLink } from '@/components/button-link'
 import { logout } from '@/features/auth-slice'
 
 import {
@@ -10,11 +12,12 @@ import * as S from './styles'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleLogout = () => {
-    dispatch(logout())
-
     localStorage.removeItem('@tgl/authentication')
+    dispatch(logout())
+    navigate('/authentication')
   }
 
   return (
