@@ -89,7 +89,11 @@ function HomePage () {
                   <GameCardContent>
                     <GameNumbers>{bet.choosen_numbers}</GameNumbers>
                     <div>
-                      <GameDate>{bet.created_at}</GameDate> {' - '}
+                      <GameDate>{(
+                        new Date(bet.created_at)
+                          .toLocaleDateString('pt-BR')
+                        )}
+                      </GameDate> {' - '}
                       <GameAmount>R$ {bet.price}</GameAmount>
                     </div>
                     <GameName>{bet.type.type}</GameName>
