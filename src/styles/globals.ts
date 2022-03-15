@@ -36,6 +36,18 @@ export const GlobalStyles = createGlobalStyle`
     body, input, textarea, button {
       font-family: ${theme.font.family};
     }
+
+    #nprogress .bar {
+      background: ${theme.colors.green} !important;
+      border: 2.5px solid ${theme.colors.green} !important;
+    }
+    #nprogress .peg {
+      box-shadow: 0 0 10px ${theme.colors.green}, 0 0 5px ${theme.colors.green} !important;
+    }
+    #nprogress .spinner-icon {
+      border-top-color: ${theme.colors.green};
+      border-left-color: ${theme.colors.green};
+    }
   `}
 
   button {

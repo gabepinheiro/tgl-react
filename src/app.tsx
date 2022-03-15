@@ -5,6 +5,8 @@ import PublicPageLayout from '@/layout/public-page'
 import { Footer } from './layout/footer'
 import { PrivatePage } from './layout/private-page'
 
+import { LazyLoad } from '@/components/lazy-load'
+
 const AuthPage = lazy(() => import('@/pages/auth-page'))
 const HomePage = lazy(() => import('@/pages/home'))
 const NewBetPage = lazy(() => import('@/pages/new-bet'))
@@ -13,7 +15,7 @@ const ResetPasswordPage = lazy(() => import('@/pages/reset-password'))
 
 export function App () {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<LazyLoad />}>
       <Routes>
 
         <Route element={<PublicPageLayout />}>
