@@ -93,10 +93,10 @@ function AuthPage () {
       </Form>
 
       <ButtonLink
-        to='/authentication'
+        to='/register'
         size='large'
       >
-        <ArrowLeftIcon /> Back
+        Sign Up  <ArrowRightIcon />
       </ButtonLink>
     </>
   )
