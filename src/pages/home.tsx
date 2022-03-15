@@ -4,6 +4,7 @@ import { fetchBets, selectBets } from '@/features/bets-slice'
 import { selectGames, selectGame, fetchGames } from '@/features/games-slice'
 import { getCurrencyFormatted } from '@/utils/formats'
 
+import { Loading } from '@/components/loading'
 import { ButtonLink } from '@/components/button-link'
 import { GameButton } from '@/components/game-button'
 import {
@@ -39,9 +40,13 @@ function HomePage () {
     dispatch(fetchBets())
   }, [dispatch])
 
+  if (isFetching || isLoading) {
+    return <Loading />
+  }
+
   return (
     <S.Content>
-      {isFetching && <p>Carregando...</p>}
+
       {(bets && !isFetching) && (
         <>
           <S.Box style={{ display: 'flex', alignItems: 'center' }}>

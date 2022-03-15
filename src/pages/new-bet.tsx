@@ -4,10 +4,11 @@ import { Button } from '@/components/button'
 import { Cart } from '@/components/cart'
 import { GameButton } from '@/components/game-button'
 import { NumberButton } from '@/components/number-button'
+import { Loading } from '@/components/loading'
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
 
-import * as S from './styles'
 import { theme } from '@/styles/theme'
+import * as S from './styles'
 
 function NewBetPage () {
   const {
@@ -25,9 +26,8 @@ function NewBetPage () {
     onSaveBet,
   } = useNewBet()
 
-  // TODO: Make Loading (Spinner) component
   if (isLoading) {
-    return <p>Carregando..</p>
+    return <Loading />
   }
 
   const numbers =
