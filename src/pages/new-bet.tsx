@@ -53,13 +53,20 @@ function NewBetPage () {
           >
             Choose game
           </S.Text>
-          <S.Box style={{ display: 'flex', gap: '2.5rem' }}>
+          <S.Box style={{
+            display: 'flex',
+            gap: '2.5rem',
+            overflowX: 'scroll',
+            paddingBottom: '0.5rem',
+          }}
+          >
             {games.map(game => (
               <GameButton
                 key={game.type}
                 color={game.color}
                 selected={game.selected}
                 onClick={onSelectedGame(game.id)}
+                style={{ flexShrink: '0' }}
               >
                 {game.type}
               </GameButton>

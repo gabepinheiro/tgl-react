@@ -49,30 +49,41 @@ function HomePage () {
 
       {(bets && !isFetching) && (
         <>
-          <S.Box style={{ display: 'flex', alignItems: 'center' }}>
-            <S.Heading upcase>Recent games</S.Heading>
-          </S.Box>
-
-          <S.Box style={{ display: 'flex', alignItems: 'center', gap: '1.8rem' }}>
-            <S.Text style={{ fontSize: '1.7rem', fontStyle: 'italic' }}>Filters</S.Text>
-            {!isLoading && games.map(game => (
-              <GameButton
-                key={game.type}
-                color={game.color}
-                selected={game.selected}
-                onClick={onSelectedGame(game.id)}
-              >
-                {game.type}
-              </GameButton>
-            ))}
-          </S.Box>
           <S.Box style={{
+            gridColumn: '1/-1',
             display: 'flex',
-            justifyContent: 'flex-end',
+            gap: '1.6rem',
+            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
           >
+            <S.Heading upcase style={{ marginRight: '4.5rem' }}>Recent games</S.Heading>
+
+            <S.Box style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1.8rem',
+              overflowX: 'scroll',
+              flexBasis: '60%',
+              paddingBottom: '0.5rem',
+            }}
+            >
+              <S.Text style={{ fontStyle: 'italic' }}>Filters</S.Text>
+              {!isLoading && games.map(game => (
+                <GameButton
+                  key={game.type}
+                  color={game.color}
+                  selected={game.selected}
+                  onClick={onSelectedGame(game.id)}
+                  style={{ flexShrink: '0' }}
+                >
+                  {game.type}
+                </GameButton>
+              ))}
+            </S.Box>
+
             <ButtonLink
-              style={{ fontSize: '2.4rem' }}
+              style={{ fontSize: '2.4rem', marginLeft: 'auto' }}
               color='greenLight'
               to='/new-bet'
             >
@@ -82,7 +93,6 @@ function HomePage () {
 
           <S.Box
             style={{
-              gridColumn: '1/-1',
               display: 'flex',
               flexDirection: 'column',
               gap: '3.0rem',

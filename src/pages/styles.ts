@@ -37,18 +37,24 @@ export const ButtonLinkWrapper = styled.div`
 `
 
 export const Content = styled.div`
+  ${({ theme }) => css`
+    width: ${theme.container};
+  `}
+
   display: grid;
-  grid-template-columns: max-content 1fr 335px;
+  grid-template-columns: max-content minmax(auto, 1fr) 335px;
   grid-gap: 5.0rem;
 `
 
 export const Box = styled.div`
    &::-webkit-scrollbar {
-    width: 0.4rem;
+    width: 0.5rem;
+    height: 0.5rem;
     overflow: hidden;
   }
 
   &::-webkit-scrollbar-thumb {
+    display: inline-block;
     background: #ADC0C4;
     border-radius: 0.4rem;
   }
