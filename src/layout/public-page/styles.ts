@@ -5,36 +5,47 @@ export const Container = styled.main`
     max-width: ${theme.container};
   `}
 
-  margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rem 3.2rem;
+  gap: 8.5rem;
   height: 90vh;
+  text-align: center;
 
   & > * {
-    height: 100%;
-    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
   }
-
   & > *:last-child {
     flex-direction: column;
     gap: 2.6rem;
   }
+
+  @media (min-width: 398px) {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    & > * {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `
 
 export const Heading = styled.h1`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+   font-size: 3.5rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   font-style: italic;
+   font-weight: bold;
 
-  font-size: 6.5rem;
-  font-style: italic;
-  font-weight: bold;
-
-  span.text-lottery {
+   span.text-lottery {
     text-transform: uppercase;
-    font-size: 8.3rem;
+    font-size: 5.2rem;
   }
 
   ${({ theme }) => css`
@@ -44,10 +55,17 @@ export const Heading = styled.h1`
       border-radius: 100px;
       padding: 0.6rem 5.6rem;
       font-size: 2.2rem;
-      margin-top: 3.0rem;
-      margin-bottom: 2.0rem;
+      margin-top: 2rem;
+      margin-bottom: 1.2rem;
     }
   `}
+
+  @media (min-width: 398px) {
+    font-size: 6.5rem;
+    span.text-lottery {
+      font-size: 8.3rem;
+    }
+  }
 `
 
 export const Box = styled.section``
