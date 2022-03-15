@@ -76,6 +76,7 @@ function HomePage () {
                   selected={game.selected}
                   onClick={onSelectedGame(game.id)}
                   style={{ flexShrink: '0' }}
+                  disabled={bets.length === 0}
                 >
                   {game.type}
                 </GameButton>
