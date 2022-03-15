@@ -43,8 +43,6 @@ export const Content = styled.div`
 `
 
 export const Box = styled.div`
-  overflow-y: scroll;
-
    &::-webkit-scrollbar {
     width: 0.4rem;
     overflow: hidden;

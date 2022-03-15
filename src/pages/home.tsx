@@ -82,6 +82,7 @@ function HomePage () {
               flexDirection: 'column',
               gap: '3.0rem',
               maxHeight: '60vh',
+              overflowY: 'scroll',
             }}
           >
             {!bets.length && <h3>Você ainda não possui jogos cadastrados.</h3>}
