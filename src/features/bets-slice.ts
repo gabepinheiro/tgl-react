@@ -1,6 +1,9 @@
 import { api } from '@/services/api'
-import { RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AxiosError } from 'axios'
+import { toast } from 'react-toastify'
+import { clearCart } from './cart-slice'
 
 export type Bet = {
   id: number,
@@ -33,6 +36,41 @@ export const fetchBets = createAsyncThunk<
   },
 )
 
+type BetGame = {
+  'game_id': number,
+  numbers: number[]
+}
+
+type NewBet = {
+  games: BetGame[]
+}
+
+export const newBet = createAsyncThunk<
+  boolean,
+  NewBet,
+  {
+    rejectValue: { message: string }
+    dispatch: AppDispatch
+  }
+>(
+  'bets/newbet',
+  async (newBetData, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await api.post('/bet/new-bet', newBetData)
+
+      dispatch(clearCart())
+
+      return !!res.data
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>
+      if (!error.response) {
+        throw err
+      }
+      return rejectWithValue(error.response.data)
+    }
+  },
+)
+
 const initialState: BetsAuth = {
   bets: [],
   isFetching: true,
@@ -48,10 +86,29 @@ const betsSlice = createSlice({
     },
   },
   extraReducers (builder) {
-    builder.addCase(fetchBets.fulfilled, (state, { payload }) => {
-      state.bets = payload
-      state.isFetching = false
-    })
+    builder
+      .addCase(fetchBets.fulfilled, (state, { payload }) => {
+        state.bets = payload
+        state.isFetching = false
+      })
+      .addCase(newBet.pending, (state) => {
+        state.isFetching = true
+      })
+      .addCase(newBet.fulfilled, (state, { payload }) => {
+        if (payload) {
+          toast.success('Aposta realizado com sucesso!')
+        }
+        state.isFetching = false
+      })
+      .addCase(newBet.rejected, (state, action) => {
+        if (action.payload) {
+          toast.error(action.payload)
+        } else {
+          toast.error(action.error.message)
+        }
+
+        state.isFetching = false
+      })
   },
 })
 

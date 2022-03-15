@@ -1,8 +1,9 @@
 import { useEffect, useReducer } from 'react'
-import { getCurrencyFormatted } from '@/utils/formats'
-import { selectCart, addItemToCart, deleteItemCart, clearCart } from '@/features/cart-slice'
-import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { getCurrencyFormatted } from '@/utils/formats'
+import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
+import { selectCart, addItemToCart, deleteItemCart } from '@/features/cart-slice'
+import { newBet } from '@/features/bets-slice'
 import { betInitialState, betReducer, ActionTypes } from './reducer'
 import { v4 as uuid } from 'uuid'
 
@@ -156,8 +157,14 @@ export const useNewBet = () => {
       return toast.error(`Valor minímo do carrinho: ${getCurrencyFormatted(minCartValue)}`)
     }
 
-    appDispatch(clearCart())
-    toast.success('Aposta realizada com sucesso!')
+    const bet = {
+      games: cart.items!.map(item => ({
+        game_id: item.game_id,
+        numbers: item.numbers,
+      })),
+    }
+
+    appDispatch(newBet(bet))
   }
 
   return {
