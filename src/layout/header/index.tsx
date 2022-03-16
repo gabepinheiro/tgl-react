@@ -5,6 +5,7 @@ import { logout } from '@/features/auth-slice'
 import { toggleCartOpen } from '@/features/ui-slice'
 
 import { ButtonLink } from '@/components/button-link'
+import { CustomLink } from '@/components/custom-link'
 
 import {
   AiOutlineArrowRight as ArrowRightIcon,
@@ -39,12 +40,11 @@ export const Header = () => {
         <S.LogoWrapper>
           <S.Logo>TGL</S.Logo>
         </S.LogoWrapper>
-
         <S.Desktop>
           <S.Navigation>
             <S.NavItems>
               <S.NavItem>
-                <ButtonLink to='/'>Home</ButtonLink>
+                <CustomLink to='/'>Home</CustomLink>
               </S.NavItem>
             </S.NavItems>
           </S.Navigation>
@@ -55,7 +55,7 @@ export const Header = () => {
         }}
         >
           <S.Actions>
-            <ButtonLink to='/account'>Account</ButtonLink>
+            <CustomLink to='/account'>Account</CustomLink>
             <ButtonLink
               as='button'
               onClick={handleLogout}
@@ -82,12 +82,12 @@ export const Header = () => {
           <S.Navigation>
             <S.NavItems>
               <S.NavItem>
-                <ButtonLink to='/' onClick={handleToggleOpenMenu}>Home</ButtonLink>
+                <CustomLink to='/' onClick={handleToggleOpenMenu}>Home</CustomLink>
               </S.NavItem>
             </S.NavItems>
           </S.Navigation>
           <S.Actions>
-            <ButtonLink to='/account'>Account</ButtonLink>
+            <CustomLink to='/account'>Account</CustomLink>
             <ButtonLink
               as='button'
               onClick={handleLogout}
