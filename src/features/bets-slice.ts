@@ -1,6 +1,6 @@
 import { api } from '@/services/api'
 import { AppDispatch, RootState } from '@/store'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 import { clearCart } from './cart-slice'
@@ -18,6 +18,7 @@ export type Bet = {
 
 type BetsState = {
   bets: Bet[]
+  filteredBets: Bet[] | null
   isFetching: boolean
 }
 
@@ -72,6 +73,7 @@ export const newBet = createAsyncThunk<
 
 const initialState: BetsState = {
   bets: [],
+  filteredBets: null,
   isFetching: true,
 }
 
@@ -79,6 +81,11 @@ const betsSlice = createSlice({
   name: 'bets',
   initialState,
   reducers: {
+    setFilteredBets (state, { payload }: PayloadAction<string>) {
+      const filtered = state.bets
+        .filter(bet => bet.type.type === payload)
+      state.filteredBets = filtered.length === 0 ? null : filtered
+    },
   },
   extraReducers (builder) {
     builder
@@ -107,5 +114,6 @@ const betsSlice = createSlice({
   },
 })
 
+export const { setFilteredBets } = betsSlice.actions
 export const selectBets = (state: RootState) => state.bets
 export default betsSlice.reducer
