@@ -57,20 +57,19 @@ export const ContainerGameButtons = styled.div`
 `
 
 export const GameButtonsWrapper = styled.div`
-  width: 80rem;
+  width: 100vw;
   display: flex;
   gap: 0.8rem;
   overflow-x: scroll;
   padding-bottom: 1rem;
   align-items: center;
 
-  @media (max-width: 468px) {
-    margin-bottom: 2.4rem;
+  @media (min-width: 468px) {
+    width: 80rem;
   }
 
   @media (max-width: 468px) {
-    justify-content: center;
-    width: 100vw;
+    margin-bottom: 2.4rem;
   }
   `
 

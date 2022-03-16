@@ -41,7 +41,6 @@ export const ContainerGameButtons = styled.div`
   width: 1000px;
 
   @media (max-width: 468px) {
-    justify-content: center;
     width: 100vw;
   }
 `
