@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/store/hooks'
 import { logout } from '@/features/auth-slice'
+import { toggleCartOpen } from '@/features/ui-slice'
 
 import { ButtonLink } from '@/components/button-link'
 
@@ -10,14 +11,14 @@ import {
   AiOutlineMenu as MenuIcon,
 } from 'react-icons/ai'
 import { GrClose as CloseIcon } from 'react-icons/gr'
+import { BsFillCartFill as CartIcon } from 'react-icons/bs'
 
 import * as S from './styles'
 
 export const Header = () => {
+  const [isOpenMenu, setIsOpenMenu] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  const [isOpenMenu, setIsOpenMenu] = useState(false)
 
   const handleToggleOpenMenu = () => {
     setIsOpenMenu(state => !state)
@@ -63,6 +64,14 @@ export const Header = () => {
             </ButtonLink>
           </S.Actions>
         </S.Desktop>
+
+        <S.Mobile>
+          <CartIcon
+            className='cart-icon'
+            size={27}
+            onClick={() => dispatch(toggleCartOpen())}
+          />
+        </S.Mobile>
 
       </S.Container>
       <S.Mobile>

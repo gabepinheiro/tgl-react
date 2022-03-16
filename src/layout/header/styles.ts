@@ -26,6 +26,7 @@ export const Container = styled.div`
   display: flex;
   gap: 7.5rem;
   align-items: center;
+  justify-content: space-between;
   position: relative;
 `
 
@@ -119,6 +120,10 @@ export const Desktop = styled.div`
 export const Mobile = styled.div`
   display: block;
   cursor: pointer;
+
+  .cart-icon {
+    cursor: pointer;
+  }
 
   @media (min-width: 468px) {
     display: none;

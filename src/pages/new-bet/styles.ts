@@ -83,11 +83,42 @@ export const ContainerButtons = styled.div`
   }
 `
 
-export const ContainerCart = styled.div`
-  width: 100%;
-  display: none;
+export const ContainerCart = styled.div<{isCartOpen: boolean}>`
+  ${({ isCartOpen }) => css`
+    @media (max-width: 468px) {
+      width: 100%;
+      height: 100%;
+      visibility: ${isCartOpen ? 'visible' : 'hidden'};
+      display: ${isCartOpen ? 'block' : 'none'};
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .close-cart {
+        border: 0;
+        background-color: transparent;
+        outline: none;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 1.6rem;
+        color: red;
+        z-index: 999;
+      }
+    }
+  `}
 
   @media (min-width: 468px) {
     display: block;
+    .close-cart {
+      display: none;
+    }
   }
 `
