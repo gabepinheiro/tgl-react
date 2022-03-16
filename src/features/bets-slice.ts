@@ -16,7 +16,7 @@ export type Bet = {
   }
 }
 
-type BetsAuth = {
+type BetsState = {
   bets: Bet[]
   isFetching: boolean
 }
@@ -70,7 +70,7 @@ export const newBet = createAsyncThunk<
   },
 )
 
-const initialState: BetsAuth = {
+const initialState: BetsState = {
   bets: [],
   isFetching: true,
 }
