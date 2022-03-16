@@ -18,7 +18,6 @@ function ResetPasswordPage () {
 
         <S.ButtonLinkWrapper>
           <ButtonLink
-            as='button'
             color='greenLight'
             size='large'
           >
@@ -27,7 +26,6 @@ function ResetPasswordPage () {
         </S.ButtonLinkWrapper>
       </Form>
       <ButtonLink
-        as='button'
         size='large'
       >
         <ArrowLeftIcon /> Back

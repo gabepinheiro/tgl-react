@@ -23,6 +23,7 @@ import {
 } from 'react-icons/ai'
 
 import * as S from './styles'
+import { CustomLink } from '@/components/custom-link'
 
 function HomePage () {
   const { bets, filteredBets, isFetching: isLoadingBets } = useAppSelector(selectBets)
@@ -74,14 +75,14 @@ function HomePage () {
               </S.GameButtonsWrapper>
             </S.ContainerGameButtons>
 
-            <ButtonLink
+            <CustomLink
               color='greenLight'
               to='/new-bet'
               className='link-newbet'
               size='large'
             >
               New Bet <ArrowRightIcon />
-            </ButtonLink>
+            </CustomLink>
           </S.ContainerRecentGames>
 
           <S.ContainerBets>

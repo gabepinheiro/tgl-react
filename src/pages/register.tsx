@@ -85,7 +85,6 @@ function RegisterPage () {
 
         <S.ButtonLinkWrapper>
           <ButtonLink
-            as='button'
             color='greenLight'
             size='large'
           >
@@ -94,10 +93,7 @@ function RegisterPage () {
         </S.ButtonLinkWrapper>
       </Form>
 
-      <ButtonLink
-        to='/authentication'
-        size='large'
-      >
+      <ButtonLink size='large'>
         <ArrowLeftIcon /> Back
       </ButtonLink>
     </>

@@ -57,7 +57,6 @@ export const Header = () => {
           <S.Actions>
             <CustomLink to='/account'>Account</CustomLink>
             <ButtonLink
-              as='button'
               onClick={handleLogout}
             >
               Log out <ArrowRightIcon />
@@ -89,7 +88,6 @@ export const Header = () => {
           <S.Actions>
             <CustomLink to='/account'>Account</CustomLink>
             <ButtonLink
-              as='button'
               onClick={handleLogout}
             >
               Log out <ArrowRightIcon />

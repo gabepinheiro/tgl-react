@@ -17,6 +17,7 @@ import {
 } from 'react-icons/ai'
 
 import * as S from './pages-styles'
+import { CustomLink } from '@/components/custom-link'
 
 type FormInputs = {
   email: string
@@ -82,7 +83,6 @@ function AuthPage () {
 
         <S.ButtonLinkWrapper>
           <ButtonLink
-            as='button'
             color='greenLight'
             size='large'
             disabled={isFetching}
@@ -92,12 +92,12 @@ function AuthPage () {
         </S.ButtonLinkWrapper>
       </Form>
 
-      <ButtonLink
+      <CustomLink
         to='/register'
         size='large'
       >
         Sign Up  <ArrowRightIcon />
-      </ButtonLink>
+      </CustomLink>
     </>
   )
 }

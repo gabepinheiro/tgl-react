@@ -1,40 +1,28 @@
-import {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ElementType,
-  ReactNode,
-} from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 
-import { To } from 'react-router-dom'
+import * as S from './styles'
 
-import { ButtonLinkStyled } from './styles'
+type ButtonType = ButtonHTMLAttributes<HTMLButtonElement>
 
-type ButtonLinkTypes =
-  | AnchorHTMLAttributes<HTMLAnchorElement>
-  | ButtonHTMLAttributes<HTMLButtonElement>
-
-export type Props = {
+export type ButtonLinkProps = {
   children: ReactNode
   color?: 'black' | 'greenLight'
   size?: 'medium' | 'large'
-  as?: ElementType
-  to?: To
-} & ButtonLinkTypes
+} & ButtonType
 
 export const ButtonLink = ({
   children,
   color = 'black',
   size = 'medium',
   ...props
-}: Props) => {
+}: ButtonLinkProps) => {
   return (
-    <ButtonLinkStyled
-      as={!props.to ? 'button' : props.as}
+    <S.Wrapper
       color={color}
       size={size}
       {...props}
     >
       {children}
-    </ButtonLinkStyled>
+    </S.Wrapper>
   )
 }
