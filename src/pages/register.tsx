@@ -93,7 +93,7 @@ function RegisterPage () {
         </S.ButtonLinkWrapper>
       </Form>
 
-      <ButtonLink size='large'>
+      <ButtonLink size='large' onClick={() => navigate(-1)}>
         <ArrowLeftIcon /> Back
       </ButtonLink>
     </>
