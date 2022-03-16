@@ -1,29 +1,8 @@
 import { Link } from 'react-router-dom'
-import styled, { css, DefaultTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
+import { LinkModifiers } from '@/styles/link-modifiers'
 
 import { Props } from './index'
-
-const Modifiers = {
-  black: (theme: DefaultTheme) => css`
-    color: ${theme.colors.gray600};
-    &:visited {
-      color: ${theme.colors.gray600};
-    }
-  `,
-  greenLight: (theme: DefaultTheme) => css`
-    color: ${theme.colors.greenLight};
-    &:visited {
-      color: ${theme.colors.greenLight};
-    }
-  `,
-  medium: () => css`
-    font-size: 2.0rem;
-
-  `,
-  large: () => css`
-    font-size: 3.5rem;
-  `,
-}
 
 export const ButtonLinkStyled = styled(Link)<Pick<Props, 'color' | 'size'>>`
     border: 0;
@@ -37,11 +16,7 @@ export const ButtonLinkStyled = styled(Link)<Pick<Props, 'color' | 'size'>>`
     gap: 1.6rem;
 
   ${({ theme, color, size }) => css`
-    ${!!color && Modifiers[color](theme)};
-    ${!!size && Modifiers[size]}
+    ${!!color && LinkModifiers[color](theme)};
+    ${!!size && LinkModifiers[size]}
   `}
-
-  @media (max-width: 468px) {
-    font-size: 2.4rem;
-  }
 `
