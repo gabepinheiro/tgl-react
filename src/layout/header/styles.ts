@@ -4,7 +4,9 @@ export const Wrapper = styled.header`
   ${({ theme }) => css`
     border-bottom: 2px solid ${theme.colors.gray250};
   `}
-  height: 8.0rem;
+  height: 10vh;
+  padding: 0 1.8rem;
+  z-index: 20;
 
   button, a {
     transition: color 0.2s ease-in-out;
@@ -17,16 +19,27 @@ export const Wrapper = styled.header`
 export const Container = styled.div`
   ${({ theme }) => css`
     max-width: ${theme.container};
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    gap: 7.5rem;
-    align-items: center;
   `}
+
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  gap: 7.5rem;
+  align-items: center;
+  position: relative;
+`
+
+export const LogoWrapper = styled.div`
+  height: 100%;
+
+  @media (max-width: 468px) {
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+  }
 `
 
 export const Logo = styled.h1`
-  color: var(--text-title);
   font-style: italic;
   font-size: 4.4rem;
   padding: 0 1rem;
@@ -62,5 +75,60 @@ export const NavItem = styled.li``
 export const Actions = styled.section`
   display: flex;
   gap: 4.0rem;
-  margin-left: auto;
+`
+
+export const MenuFull = styled.menu<{isOpen: boolean}>`
+  ${({ theme, isOpen }) => css`
+    background-color: ${theme.colors.white};
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease-in-out;
+    opacity: ${isOpen ? 1 : 0};
+    pointer-events: ${isOpen ? 'all' : 'none'};
+    visibility: ${isOpen ? 'visible' : 'hidden'};
+
+    ${Actions} {
+      margin-top: 12rem;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+  `}
+`
+
+export const Desktop = styled.div`
+  display: none;
+
+  @media (min-width: 468px) {
+    display: block;
+  }
+`
+
+export const Mobile = styled.div`
+  display: block;
+  cursor: pointer;
+
+  @media (min-width: 468px) {
+    display: none;
+  }
+`
+
+export const IconWrapper = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top:0;
+  left: 0;
+  margin: 1.8rem;
 `

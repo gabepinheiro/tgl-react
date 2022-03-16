@@ -7,6 +7,8 @@ import { getCurrencyFormatted } from '@/utils/formats'
 import { Loading } from '@/components/loading'
 import { ButtonLink } from '@/components/button-link'
 import { GameButton } from '@/components/game-button'
+import { Heading, Text } from '@/pages/pages-styles'
+
 import {
   GameCardContainer,
   GameName,
@@ -46,61 +48,39 @@ function HomePage () {
 
   return (
     <S.Content>
-
       {(bets && !isFetching) && (
         <>
-          <S.Box style={{
-            gridColumn: '1/-1',
-            display: 'flex',
-            gap: '1.6rem',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-          >
-            <S.Heading upcase style={{ marginRight: '4.5rem' }}>Recent games</S.Heading>
-
-            <S.Box style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1.8rem',
-              overflowX: 'scroll',
-              flexBasis: '60%',
-              paddingBottom: '0.5rem',
-            }}
-            >
-              <S.Text style={{ fontStyle: 'italic' }}>Filters</S.Text>
-              {!isLoading && games.map(game => (
-                <GameButton
-                  key={game.type}
-                  color={game.color}
-                  selected={game.selected}
-                  onClick={onSelectedGame(game.id)}
-                  style={{ flexShrink: '0' }}
-                  disabled={bets.length === 0}
-                >
-                  {game.type}
-                </GameButton>
-              ))}
-            </S.Box>
+          <S.ContainerRecentGames>
+            <Heading upcase className='heading'>Recent games</Heading>
+            <Text className='filterTitle'>Filters</Text>
+            <S.ContainerGameButtons>
+              <S.GameButtonsWrapper>
+                {!isLoading && games.map(game => (
+                  <GameButton
+                    key={game.type}
+                    color={game.color}
+                    selected={game.selected}
+                    onClick={onSelectedGame(game.id)}
+                    style={{ flexShrink: '0' }}
+                    disabled={bets.length === 0}
+                  >
+                    {game.type}
+                  </GameButton>
+                ))}
+              </S.GameButtonsWrapper>
+            </S.ContainerGameButtons>
 
             <ButtonLink
-              style={{ fontSize: '2.4rem', marginLeft: 'auto' }}
               color='greenLight'
               to='/new-bet'
+              className='link-newbet'
+              size='large'
             >
               New Bet <ArrowRightIcon />
             </ButtonLink>
-          </S.Box>
+          </S.ContainerRecentGames>
 
-          <S.Box
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '3.0rem',
-              maxHeight: '60vh',
-              overflowY: 'scroll',
-            }}
-          >
+          <S.ContainerBets>
             {!bets.length && <h3>Você ainda não possui jogos cadastrados.</h3>}
 
             {(!isLoading && !filteredBets.length && !!bets.length) && (
@@ -124,7 +104,7 @@ function HomePage () {
                   </GameCardContent>
                 </GameCardContainer>
               )))}
-          </S.Box>
+          </S.ContainerBets>
         </>
       )}
     </S.Content>

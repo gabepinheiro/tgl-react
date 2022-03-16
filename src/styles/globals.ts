@@ -17,13 +17,13 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
 
-    @media (max-width: 1080px) {
+    /* @media (max-width: 1080px) {
       font-size: 56.25%;
     }
 
     @media (max-width: 720px) {
       font-size: 50%;
-    }
+    } */
   }
 
   ${({ theme }) => css`
@@ -75,9 +75,22 @@ export const GlobalStyles = createGlobalStyle`
 
   button {
     cursor: pointer;
+    outline: none;
     :disabled {
       cursor: not-allowed;
       opacity: 0.5;
     }
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    display: inline-block;
+    background: #777;
+    border-radius: 0.4rem;
   }
 `

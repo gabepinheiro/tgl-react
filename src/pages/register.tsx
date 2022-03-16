@@ -16,7 +16,7 @@ import {
 } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 
-import * as S from './styles'
+import * as S from './pages-styles'
 
 type FormInputs = {
   name: string,

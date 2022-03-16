@@ -5,12 +5,13 @@ export const Container = styled.main`
     max-width: ${theme.container};
   `}
 
+  min-height: 90vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8rem 3.2rem;
-  gap: 8.5rem;
-  height: 90vh;
+  padding:3.2rem;
+  gap: 6rem;
   text-align: center;
 
   & > * {
@@ -21,7 +22,8 @@ export const Container = styled.main`
     gap: 2.6rem;
   }
 
-  @media (min-width: 398px) {
+  @media (min-width: 468px) {
+    height: 90vh;
     margin: 0 auto;
     display: flex;
     flex-direction: row;

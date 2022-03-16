@@ -41,7 +41,6 @@ export const useNewBet = () => {
 
   const onToggleNumber = (num: number) => {
     return () => {
-      console.log('number:', num)
       const isNumberAdded = currentBet.numbers.includes(num)
       if (isNumberAdded) {
         return currentBetDispatch({ type: ActionTypes.REMOVE_NUMBER, payload: num })

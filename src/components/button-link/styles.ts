@@ -40,4 +40,8 @@ export const ButtonLinkStyled = styled(Link)<Pick<Props, 'color' | 'size'>>`
     ${!!color && Modifiers[color](theme)};
     ${!!size && Modifiers[size]}
   `}
+
+  @media (max-width: 468px) {
+    font-size: 2.4rem;
+  }
 `

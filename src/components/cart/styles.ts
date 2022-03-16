@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.article`
-  max-width: 335px;
+  width: 330px;
   border-radius: 1.0rem;
   overflow-wrap: break-word;
 

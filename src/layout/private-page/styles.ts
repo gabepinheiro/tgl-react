@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
-  min-height: 90vh;
 `
 
 export const MainContainer = styled.main`
@@ -12,5 +11,9 @@ export const MainContainer = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 468px) {
+      margin: 3.8rem auto;
+    }
   `}
 `

@@ -16,7 +16,7 @@ import {
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
 
-import * as S from './styles'
+import * as S from './pages-styles'
 
 type FormInputs = {
   email: string
