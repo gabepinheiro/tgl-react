@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { fetchBets, selectBets, setFilteredBets } from '@/features/bets-slice'
 import { selectGames, selectGame, fetchGames } from '@/features/games-slice'
