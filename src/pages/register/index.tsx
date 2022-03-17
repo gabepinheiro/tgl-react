@@ -7,15 +7,17 @@ import { api } from '@/services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 
-import { Form } from '@/components/form'
-import { Input } from '@/components/input'
-import { ButtonLink } from '@/components/button-link'
+import {
+  Heading,
+  Form,
+  Input,
+  ButtonLink,
+} from '@/components'
 
 import {
   AiOutlineArrowRight as ArrowRightIcon,
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
-import { Heading } from '@/components/heading'
 
 type FormInputs = {
   name: string,

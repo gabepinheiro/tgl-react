@@ -7,10 +7,13 @@ import { api } from '@/services/api'
 import * as yup from 'yup'
 import { toast } from 'react-toastify'
 
-import { Form } from '@/components/form'
-import { Input } from '@/components/input'
-import { ButtonLink } from '@/components/button-link'
-import { Heading } from '@/components/heading'
+import {
+  Form,
+  Input,
+  ButtonLink,
+  Heading,
+} from '@/components'
+
 import {
   AiOutlineArrowRight as ArrowRightIcon,
   AiOutlineArrowLeft as ArrowLeftIcon,

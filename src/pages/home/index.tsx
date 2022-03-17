@@ -5,11 +5,6 @@ import { AxiosRequestConfig } from 'axios'
 import { Bet } from '@/resources/types'
 import { Game } from '@/features/games-slice'
 
-import { Loading } from '@/components/loading'
-import { GameButton } from '@/components/game-button'
-import { CustomLink } from '@/components/custom-link'
-import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
-
 import {
   GameCardContainer,
   GameName,
@@ -17,7 +12,11 @@ import {
   GameCardContent,
   GameDate,
   GameAmount,
-} from '@/components/game-card'
+  GameButton,
+  Loading,
+  CustomLink,
+} from '@/components'
+import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
 
 import * as S from './styles'
 import { Heading } from '@/components/heading'

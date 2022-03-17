@@ -7,11 +7,7 @@ import { User } from '@/features/auth-slice'
 import { api } from '@/services/api'
 import { toast } from 'react-toastify'
 
-import { Button } from '@/components/button'
-import { Heading } from '@/components/heading'
-import { Loading } from '@/components/loading'
-import { Form } from '@/components/form'
-import { Input } from '@/components/input'
+import { Button, Heading, Loading, Form, Input } from '@/components'
 import { MdSaveAlt as SaveIcon } from 'react-icons/md'
 
 import * as S from './styles'

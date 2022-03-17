@@ -2,13 +2,16 @@ import { useNewBet } from '@/pages/features/new-bet/useNewBet'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { selectUi, toggleCartOpen } from '@/features/ui-slice'
 
-import { Button } from '@/components/button'
-import { Cart } from '@/components/cart'
-import { GameButton } from '@/components/game-button'
-import { NumberButton } from '@/components/number-button'
-import { Loading } from '@/components/loading'
+import {
+  Heading,
+  Button,
+  Cart,
+  GameButton,
+  NumberButton,
+  Loading,
+} from '@/components'
+
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
-import { Heading } from '@/components/heading'
 import { GrClose as CloseIcon } from 'react-icons/gr'
 
 import { theme } from '@/styles/theme'

@@ -7,11 +7,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { toast } from 'react-toastify'
 
-import { Heading } from '@/components/heading'
-import { Form } from '@/components/form'
-import { Input } from '@/components/input'
-import { ButtonLink } from '@/components/button-link'
-import { CustomLink } from '@/components/custom-link'
+import {
+  Heading,
+  Form,
+  Input,
+  ButtonLink,
+  CustomLink,
+} from '@/components'
+
 import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
 
 type FormInputs = {

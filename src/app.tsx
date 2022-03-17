@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { LazyLoad } from '@/components/lazy-load'
+import { LazyLoad } from '@/components'
 
 import { PublicPage, PrivatePage, Footer } from '@/layout'
 
