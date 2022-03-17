@@ -89,7 +89,12 @@ export const Header = () => {
             </S.NavItems>
           </S.Navigation>
           <S.Actions>
-            <CustomLink to='/account'>Account</CustomLink>
+            <CustomLink
+              to='/account'
+              onClick={handleToggleOpenMenu}
+            >
+              Account
+            </CustomLink>
             <ButtonLink
               onClick={handleLogout}
             >
