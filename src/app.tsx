@@ -6,7 +6,14 @@ import PublicPageLayout from '@/layout/public-page'
 import { PrivatePage } from './layout/private-page'
 import { Footer } from './layout/footer'
 
-import { AuthPage, HomePage, NewBetPage, RegisterPage, ResetPasswordPage } from '@/pages'
+import {
+  AuthPage,
+  HomePage,
+  NewBetPage,
+  RegisterPage,
+  ResetPasswordPage,
+  ChangePasswordPage,
+} from '@/pages'
 
 export function App () {
   return (
@@ -17,6 +24,7 @@ export function App () {
           <Route path='/authentication' element={<AuthPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />
+          <Route path='/change-password' element={<ChangePasswordPage />} />
         </Route>
 
         <Route element={<PrivatePage />}>
