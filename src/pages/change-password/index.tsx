@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -35,6 +35,7 @@ const schema = yup.object({
 
 function ChangePasswordPage () {
   const navigate = useNavigate()
+  const token = api.defaults.headers.common.Authorization
 
   const {
     register,
@@ -67,6 +68,10 @@ function ChangePasswordPage () {
 
       toast.error(err.message)
     }
+  }
+
+  if (!token) {
+    return <Navigate to='/reset-password' />
   }
 
   return (
