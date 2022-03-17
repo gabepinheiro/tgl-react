@@ -118,7 +118,7 @@ function HomePage () {
       </S.ContainerRecentGames>
 
       <S.ContainerBets>
-        {!bets && <h3>Você ainda não possui apostas cadastradas.</h3>}
+        {!bets?.length && <h3>Você ainda não possui apostas cadastradas.</h3>}
 
         {!!bets &&
           bets?.map(bet => {
