@@ -1,13 +1,15 @@
-import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import { fetchBets, selectBets, setFilteredBets } from '@/features/bets-slice'
-import { selectGames, selectGame, fetchGames } from '@/features/games-slice'
+import { useEffect, useState } from 'react'
 import { getCurrencyFormatted } from '@/utils/formats'
+import { api } from '@/services/api'
+import { AxiosRequestConfig } from 'axios'
+import { Bet } from '@/features/bets-slice'
+import { Game } from '@/features/games-slice'
 
 import { Loading } from '@/components/loading'
-import { ButtonLink } from '@/components/button-link'
 import { GameButton } from '@/components/game-button'
 import { Heading, Text } from '@/pages/pages-styles'
+import { CustomLink } from '@/components/custom-link'
+import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
 
 import {
   GameCardContainer,
@@ -18,100 +20,131 @@ import {
   GameAmount,
 } from '@/components/game-card'
 
-import {
-  AiOutlineArrowRight as ArrowRightIcon,
-} from 'react-icons/ai'
-
 import * as S from './styles'
-import { CustomLink } from '@/components/custom-link'
+
+const fetchBets = async (config?: AxiosRequestConfig): Promise<Bet[]> => {
+  return api.get('/bet/all-bets', { ...config })
+    .then(res => res.data)
+}
+
+const fetchGames = async (): Promise<Game[]> => {
+  return api.get('/cart_games')
+    .then(res => res.data.types)
+}
 
 function HomePage () {
-  const { bets, filteredBets, isFetching: isLoadingBets } = useAppSelector(selectBets)
-  const { types: games, selectedGame, isLoading: isLoadingGames } = useAppSelector(selectGames)
-  const dispatch = useAppDispatch()
+  const [bets, setBets] = useState<Bet[] | null>(null)
+  const [games, setGames] = useState<Game[] | null>(null)
+  const [loadingBets, setLoadingBets] = useState(true)
+  const [loadingGames, setLoadingGames] = useState(false)
+  const [filterTypes, setFilterTypes] = useState<string[]>([])
 
-  const onSelectedGame = (id: number) => {
-    return () => {
-      dispatch(selectGame(id))
+  useEffect(() => {
+    const request = async () => {
+      try {
+        const bets = await fetchBets()
+        const games = await fetchGames()
+        setBets(bets)
+        setGames(games)
+      } catch (error) {
+
+      } finally {
+        setLoadingBets(false)
+        setLoadingGames(false)
+      }
     }
+    request()
+  }, [])
+
+  useEffect(() => {
+    setLoadingBets(true)
+    const requestBetsFiltered = async () => {
+      try {
+        const bets = await fetchBets({
+          params: {
+            type: filterTypes,
+          },
+        })
+        setBets(bets)
+      } catch (error) {
+
+      } finally {
+        setLoadingBets(false)
+      }
+    }
+    requestBetsFiltered()
+  }, [filterTypes])
+
+  const handleToggleFilterType = (type: string) => {
+    setFilterTypes(state => {
+      return state.includes(type)
+        ? state.filter(item => item !== type)
+        : state.concat(type)
+    })
   }
 
-  useEffect(() => {
-    dispatch(fetchGames())
-    dispatch(fetchBets())
-  }, [dispatch])
-
-  useEffect(() => {
-    if (selectedGame?.type) {
-      dispatch(setFilteredBets(selectedGame.type))
-    }
-  }, [selectedGame, dispatch, bets])
-
-  if (isLoadingBets || isLoadingGames) {
+  if (loadingBets || loadingGames) {
     return <Loading />
   }
 
   return (
     <S.Content>
-      {(bets && !isLoadingBets) && (
-        <>
-          <S.ContainerRecentGames>
-            <Heading upcase className='heading'>Recent games</Heading>
-            <Text className='filterTitle'>Filters</Text>
-            <S.ContainerGameButtons>
-              <S.GameButtonsWrapper>
-                {!isLoadingGames && games.map(game => (
-                  <GameButton
-                    key={game.type}
-                    color={game.color}
-                    selected={game.selected}
-                    onClick={onSelectedGame(game.id)}
-                    style={{ flexShrink: '0' }}
-                    disabled={bets.length === 0}
-                  >
-                    {game.type}
-                  </GameButton>
-                ))}
-              </S.GameButtonsWrapper>
-            </S.ContainerGameButtons>
+      <S.ContainerRecentGames>
+        <Heading upcase className='heading'>Recent games</Heading>
+        <Text className='filterTitle'>Filters</Text>
+        <S.ContainerGameButtons>
+          <S.GameButtonsWrapper>
+            {games && games.map(game => (
+              <GameButton
+                key={game.type}
+                color={game.color}
+                selected={!!filterTypes.includes(game.type)}
+                onClick={() => handleToggleFilterType(game.type)}
+                style={{ flexShrink: '0' }}
+              >
+                {game.type}
+              </GameButton>
+            ))}
+          </S.GameButtonsWrapper>
+        </S.ContainerGameButtons>
 
-            <CustomLink
-              color='greenLight'
-              to='/new-bet'
-              className='link-newbet'
-              size='large'
-            >
-              New Bet <ArrowRightIcon />
-            </CustomLink>
-          </S.ContainerRecentGames>
+        <CustomLink
+          color='greenLight'
+          to='/new-bet'
+          className='link-newbet'
+          size='large'
+        >
+          New Bet <ArrowRightIcon />
+        </CustomLink>
+      </S.ContainerRecentGames>
 
-          <S.ContainerBets>
-            {bets.length === 0 && <h3>Você ainda não possui apostas cadastradas.</h3>}
+      <S.ContainerBets>
+        {!bets && <h3>Você ainda não possui apostas cadastradas.</h3>}
 
-            {(!filteredBets && bets.length)
-              ? <h3>Você não possui aposta cadastrada com este jogo.</h3>
-              : (
-                  filteredBets?.map(bet => (
-                    <GameCardContainer key={bet.id} color={selectedGame?.color!}>
-                      <GameCardContent>
-                        <GameNumbers>{bet.choosen_numbers}</GameNumbers>
-                        <div>
-                          <GameDate>{(
-                            new Date(bet.created_at)
-                              .toLocaleDateString('pt-BR')
-                        )}
-                          </GameDate> {' - '}
-                          <GameAmount>{getCurrencyFormatted(bet.price)}</GameAmount>
-                        </div>
-                        <GameName>{bet.type.type}</GameName>
-                      </GameCardContent>
-                    </GameCardContainer>
-                  )))}
-          </S.ContainerBets>
-        </>
-      )}
+        {!!bets &&
+          bets?.map(bet => {
+            const gameColor =
+              games?.find(game => game.type === bet.type.type)
+                ?.color
+            return (
+              <GameCardContainer key={bet.id} color={gameColor!}>
+                <GameCardContent>
+                  <GameNumbers>{bet.choosen_numbers}</GameNumbers>
+                  <div>
+                    <GameDate>{(
+                    new Date(bet.created_at)
+                      .toLocaleDateString('pt-BR')
+                    )}
+                    </GameDate> {' - '}
+                    <GameAmount>{getCurrencyFormatted(bet.price)}</GameAmount>
+                  </div>
+                  <GameName>{bet.type.type}</GameName>
+                </GameCardContent>
+              </GameCardContainer>
+            )
+          })}
+      </S.ContainerBets>
     </S.Content>
   )
 }
-
 export default HomePage

@@ -81,11 +81,7 @@ const betsSlice = createSlice({
   name: 'bets',
   initialState,
   reducers: {
-    setFilteredBets (state, { payload }: PayloadAction<string>) {
-      const filtered = state.bets
-        .filter(bet => bet.type.type === payload)
-      state.filteredBets = filtered.length === 0 ? null : filtered
-    },
+
   },
   extraReducers (builder) {
     builder
@@ -114,6 +110,5 @@ const betsSlice = createSlice({
   },
 })
 
-export const { setFilteredBets } = betsSlice.actions
 export const selectBets = (state: RootState) => state.bets
 export default betsSlice.reducer
