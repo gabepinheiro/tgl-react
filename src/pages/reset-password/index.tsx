@@ -7,8 +7,11 @@ import {
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
 import { Heading } from '@/components/heading'
+import { useNavigate } from 'react-router-dom'
 
 function ResetPasswordPage () {
+  const navigate = useNavigate()
+
   return (
     <>
       <Heading size='large'>Reset password</Heading>
@@ -24,6 +27,7 @@ function ResetPasswordPage () {
       </Form>
       <ButtonLink
         size='large'
+        onClick={() => navigate(-1)}
       >
         <ArrowLeftIcon /> Back
       </ButtonLink>
