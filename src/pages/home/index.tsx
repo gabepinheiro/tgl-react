@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getCurrencyFormatted } from '@/utils/formats'
 import { api } from '@/services/api'
 import { AxiosRequestConfig } from 'axios'
-import { Bet } from '@/features/bets-slice'
+import { Bet } from '@/resources/types'
 import { Game } from '@/features/games-slice'
 
 import { Loading } from '@/components/loading'

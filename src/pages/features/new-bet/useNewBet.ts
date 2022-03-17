@@ -2,14 +2,17 @@ import { useEffect, useReducer } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { getCurrencyFormatted } from '@/utils/formats'
 import { fetchGames, selectGame, selectGames } from '@/features/games-slice'
-import { selectCart, addItemToCart, deleteItemCart } from '@/features/cart-slice'
-import { newBet } from '@/features/bets-slice'
+import { selectCart, addItemToCart, deleteItemCart, clearCart } from '@/features/cart-slice'
 import { betInitialState, betReducer, ActionTypes } from './reducer'
 import { v4 as uuid } from 'uuid'
 
 import { toast } from 'react-toastify'
+import { api } from '@/services/api'
+import { AxiosError } from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export const useNewBet = () => {
+  const navigate = useNavigate()
   const {
     minCartValue,
     types: games,
@@ -151,19 +154,30 @@ export const useNewBet = () => {
     }
   }
 
-  const onSaveBet = () => {
+  const onSaveBet = async () => {
     if (cart.totalValue < minCartValue) {
       return toast.error(`Valor minímo do carrinho: ${getCurrencyFormatted(minCartValue)}`)
     }
 
-    const bet = {
+    const newBet = {
       games: cart.items!.map(item => ({
         game_id: item.game_id,
         numbers: item.numbers,
       })),
     }
 
-    appDispatch(newBet(bet))
+    try {
+      await api.post('/bet/new-bet', newBet)
+      toast.success('Aposta realizado com sucesso!')
+      appDispatch(clearCart())
+      navigate('/')
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>
+      if (error.response) {
+        toast.error(error.response.data.message)
+      }
+      toast.error((err as Error).message && 'Erro de conexão')
+    }
   }
 
   return {
