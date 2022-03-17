@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/store/hooks'
 import { logout } from '@/features/auth-slice'
 import { toggleCartOpen } from '@/features/ui-slice'
@@ -20,6 +20,7 @@ export const Header = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleToggleOpenMenu = () => {
     setIsOpenMenu(state => !state)
@@ -65,11 +66,13 @@ export const Header = () => {
         </S.Desktop>
 
         <S.Mobile>
-          <CartIcon
-            className='cart-icon'
-            size={27}
-            onClick={() => dispatch(toggleCartOpen())}
-          />
+          {location.pathname === '/new-bet' && (
+            <CartIcon
+              className='cart-icon'
+              size={27}
+              onClick={() => dispatch(toggleCartOpen())}
+            />
+          )}
         </S.Mobile>
 
       </S.Container>
