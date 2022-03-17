@@ -76,6 +76,8 @@ function AuthPage () {
         <Input type='email' placeholder='Email' {...register('email')} />
         <Input type='password' placeholder='Password' {...register('password')} />
 
+        <Link to='/reset-password'>I forget my password</Link>
+
         <ButtonLink
           color='greenLight'
           size='large'
