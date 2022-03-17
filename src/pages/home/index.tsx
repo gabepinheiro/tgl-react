@@ -7,7 +7,6 @@ import { Game } from '@/features/games-slice'
 
 import { Loading } from '@/components/loading'
 import { GameButton } from '@/components/game-button'
-import { Heading, Text } from '@/pages/pages-styles'
 import { CustomLink } from '@/components/custom-link'
 import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
 
@@ -21,6 +20,7 @@ import {
 } from '@/components/game-card'
 
 import * as S from './styles'
+import { Heading } from '@/components/heading'
 
 const fetchBets = async (config?: AxiosRequestConfig): Promise<Bet[]> => {
   return api.get('/bet/all-bets', { ...config })
@@ -91,7 +91,7 @@ function HomePage () {
     <S.Content>
       <S.ContainerRecentGames>
         <Heading upcase className='heading'>Recent games</Heading>
-        <Text className='filterTitle'>Filters</Text>
+        <p className='filterTitle'>Filters</p>
         <S.ContainerGameButtons>
           <S.GameButtonsWrapper>
             {games && games.map(game => (

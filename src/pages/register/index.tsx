@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { api } from '@/services/api'
+import { toast } from 'react-toastify'
 import axios from 'axios'
 
 import { Form } from '@/components/form'
@@ -14,9 +15,7 @@ import {
   AiOutlineArrowRight as ArrowRightIcon,
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
-import { toast } from 'react-toastify'
-
-import * as S from './pages-styles'
+import { Heading } from '@/components/heading'
 
 type FormInputs = {
   name: string,
@@ -77,20 +76,18 @@ function RegisterPage () {
 
   return (
     <>
-      <S.Heading size='large'>Registration</S.Heading>
+      <Heading size='large'>Registration</Heading>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input type='text' placeholder='Name' {...register('name')} />
         <Input type='email' placeholder='Email' {...register('email')} />
         <Input type='password' placeholder='Password' {...register('password')} />
 
-        <S.ButtonLinkWrapper>
-          <ButtonLink
-            color='greenLight'
-            size='large'
-          >
-            Register <ArrowRightIcon />
-          </ButtonLink>
-        </S.ButtonLinkWrapper>
+        <ButtonLink
+          color='greenLight'
+          size='large'
+        >
+          Register <ArrowRightIcon />
+        </ButtonLink>
       </Form>
 
       <ButtonLink size='large' onClick={() => navigate(-1)}>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { login, selectAuth, setIsFetching, setError } from '@/features/auth-slice'
 import { useForm } from 'react-hook-form'
@@ -7,17 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { toast } from 'react-toastify'
 
+import { Heading } from '@/components/heading'
 import { Form } from '@/components/form'
 import { Input } from '@/components/input'
 import { ButtonLink } from '@/components/button-link'
-
-import {
-  AiOutlineArrowRight as ArrowRightIcon,
-  AiOutlineArrowLeft as ArrowLeftIcon,
-} from 'react-icons/ai'
-
-import * as S from './pages-styles'
 import { CustomLink } from '@/components/custom-link'
+import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
 
 type FormInputs = {
   email: string
@@ -76,20 +71,18 @@ function AuthPage () {
 
   return (
     <>
-      <S.Heading size='large'>Authentication</S.Heading>
+      <Heading size='large'>Authentication</Heading>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input type='email' placeholder='Email' {...register('email')} />
         <Input type='password' placeholder='Password' {...register('password')} />
 
-        <S.ButtonLinkWrapper>
-          <ButtonLink
-            color='greenLight'
-            size='large'
-            disabled={isFetching}
-          >
-            Log In <ArrowRightIcon />
-          </ButtonLink>
-        </S.ButtonLinkWrapper>
+        <ButtonLink
+          color='greenLight'
+          size='large'
+          disabled={isFetching}
+        >
+          Log In <ArrowRightIcon />
+        </ButtonLink>
       </Form>
 
       <CustomLink

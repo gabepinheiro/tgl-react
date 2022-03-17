@@ -1,17 +1,12 @@
-import { lazy, Suspense } from 'react'
+import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import PublicPageLayout from '@/layout/public-page'
-import { Footer } from './layout/footer'
-import { PrivatePage } from './layout/private-page'
-
 import { LazyLoad } from '@/components/lazy-load'
+import PublicPageLayout from '@/layout/public-page'
+import { PrivatePage } from './layout/private-page'
+import { Footer } from './layout/footer'
 
-const AuthPage = lazy(() => import('@/pages/auth-page'))
-const HomePage = lazy(() => import('@/pages/home'))
-const NewBetPage = lazy(() => import('@/pages/new-bet'))
-const RegisterPage = lazy(() => import('@/pages/register'))
-const ResetPasswordPage = lazy(() => import('@/pages/reset-password'))
+import { AuthPage, HomePage, NewBetPage, RegisterPage, ResetPasswordPage } from '@/pages'
 
 export function App () {
   return (

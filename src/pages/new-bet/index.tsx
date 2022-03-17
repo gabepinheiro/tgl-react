@@ -7,8 +7,8 @@ import { Cart } from '@/components/cart'
 import { GameButton } from '@/components/game-button'
 import { NumberButton } from '@/components/number-button'
 import { Loading } from '@/components/loading'
-import { Heading, Text } from '@/pages/pages-styles'
 import { RiShoppingCartLine as CartIcon } from 'react-icons/ri'
+import { Heading } from '@/components/heading'
 import { GrClose as CloseIcon } from 'react-icons/gr'
 
 import { theme } from '@/styles/theme'
@@ -45,7 +45,7 @@ function NewBetPage () {
         <Heading upcase>New bet <span>for {selectedGame!.type}</span></Heading>
 
         <S.ContainerChooseGame>
-          <Text style={{
+          <p style={{
             fontSize: '1.7rem',
             fontWeight: 'bold',
             fontStyle: 'italic',
@@ -53,7 +53,7 @@ function NewBetPage () {
           }}
           >
             Choose game
-          </Text>
+          </p>
           <S.ContainerGameButtons>
             {games.map(game => (
               <GameButton
@@ -69,7 +69,7 @@ function NewBetPage () {
           </S.ContainerGameButtons>
         </S.ContainerChooseGame>
         <S.BetDescription>
-          <Text
+          <p
             style={{
               fontSize: '1.7rem',
               fontWeight: 'bold',
@@ -78,15 +78,15 @@ function NewBetPage () {
             }}
           >
             Fill your bet
-          </Text>
-          <Text style={{
+          </p>
+          <p style={{
             fontSize: '1.7rem',
             fontStyle: 'italic',
             lineHeight: '2.4rem',
           }}
           >
             {selectedGame?.description}
-          </Text>
+          </p>
         </S.BetDescription>
         <S.ContainerNumbers>
           {numbers.map((number) => (

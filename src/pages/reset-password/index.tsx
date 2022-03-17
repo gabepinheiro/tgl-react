@@ -6,24 +6,21 @@ import {
   AiOutlineArrowRight as ArrowRightIcon,
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
-
-import * as S from './pages-styles'
+import { Heading } from '@/components/heading'
 
 function ResetPasswordPage () {
   return (
     <>
-      <S.Heading size='large'>Reset password</S.Heading>
+      <Heading size='large'>Reset password</Heading>
       <Form>
         <Input placeholder='Email' />
 
-        <S.ButtonLinkWrapper>
-          <ButtonLink
-            color='greenLight'
-            size='large'
-          >
-            Send link <ArrowRightIcon />
-          </ButtonLink>
-        </S.ButtonLinkWrapper>
+        <ButtonLink
+          color='greenLight'
+          size='large'
+        >
+          Send link <ArrowRightIcon />
+        </ButtonLink>
       </Form>
       <ButtonLink
         size='large'

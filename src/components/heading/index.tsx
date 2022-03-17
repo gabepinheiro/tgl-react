@@ -29,11 +29,3 @@ export const Heading = styled.h2<HeadingProps>`
     ${upcase && HeadingModifiers.upcase()}
   `}
 `
-
-export const ButtonLinkWrapper = styled.div`
-  width: max-content;
-  padding: 3.4rem;
-  margin: 0 auto;
-`
-
-export const Text = styled.p``
