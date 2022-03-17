@@ -12,6 +12,7 @@ import {
   RegisterPage,
   ResetPasswordPage,
   ChangePasswordPage,
+  AccountPage,
 } from '@/pages'
 
 export function App () {
@@ -29,6 +30,7 @@ export function App () {
         <Route element={<PrivatePage />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/new-bet' element={<NewBetPage />} />
+          <Route path='/account' element={<AccountPage />} />
         </Route>
 
         <Route path='*' element={<h1>Page not found!</h1>} />
