@@ -2,9 +2,8 @@ import { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import { LazyLoad } from '@/components/lazy-load'
-import PublicPageLayout from '@/layout/public-page'
-import { PrivatePage } from './layout/private-page'
-import { Footer } from './layout/footer'
+
+import { PublicPage, PrivatePage, Footer } from '@/layout'
 
 import {
   AuthPage,
@@ -20,7 +19,7 @@ export function App () {
     <Suspense fallback={<LazyLoad />}>
       <Routes>
 
-        <Route element={<PublicPageLayout />}>
+        <Route element={<PublicPage />}>
           <Route path='/authentication' element={<AuthPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/reset-password' element={<ResetPasswordPage />} />

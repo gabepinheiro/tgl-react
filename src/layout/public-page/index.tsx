@@ -2,7 +2,7 @@ import { Outlet, Navigate, useLocation } from 'react-router-dom'
 
 import * as S from './styles'
 
-const PublicPage = () => {
+export const PublicPage = () => {
   const location = useLocation()
 
   const tokenFromLocalStorage = localStorage.getItem('@tgl/authentication')
@@ -29,5 +29,3 @@ const PublicPage = () => {
     </S.Container>
   )
 }
-
-export default PublicPage
