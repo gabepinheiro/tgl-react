@@ -1,22 +1,70 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { AxiosError } from 'axios'
+import { api } from '@/services/api'
+import * as yup from 'yup'
+import { toast } from 'react-toastify'
+
 import { Form } from '@/components/form'
 import { Input } from '@/components/input'
 import { ButtonLink } from '@/components/button-link'
-
+import { Heading } from '@/components/heading'
 import {
   AiOutlineArrowRight as ArrowRightIcon,
   AiOutlineArrowLeft as ArrowLeftIcon,
 } from 'react-icons/ai'
-import { Heading } from '@/components/heading'
-import { useNavigate } from 'react-router-dom'
+
+type FormInputs = {
+  email: string
+}
+
+const schema = yup.object({
+  email: yup.string().email().required('Email é obrigatório'),
+}).required()
 
 function ResetPasswordPage () {
   const navigate = useNavigate()
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors },
+  } = useForm<FormInputs>({
+    resolver: yupResolver(schema),
+  })
+
+  useEffect(() => {
+    formErrors.email && toast.error(formErrors.email.message)
+  }, [formErrors])
+
+  const onSubmit = async (data: FormInputs) => {
+    try {
+      const res = await api.post('/reset', {
+        email: data.email,
+      })
+
+      const { name, token } = res.data
+      toast.success(`Olá, ${name}. Informe sua nova senha.`)
+      api.defaults.headers.common.Authorization = `${token}`
+
+      navigate('/change-password')
+    } catch (error) {
+      const err = error as AxiosError
+      if (err.response) {
+        return toast.error(err.response.data.message)
+      }
+
+      toast.error(err.message)
+    }
+  }
+
   return (
     <>
       <Heading size='large'>Reset password</Heading>
-      <Form>
-        <Input placeholder='Email' />
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input placeholder='Email' {...register('email')} />
 
         <ButtonLink
           color='greenLight'
