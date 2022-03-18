@@ -6,6 +6,7 @@ import { Bet } from '@/resources/types'
 import { Game } from '@/features/games-slice'
 
 import {
+  Heading,
   GameCardContainer,
   GameName,
   GameNumbers,
@@ -19,7 +20,6 @@ import {
 import { AiOutlineArrowRight as ArrowRightIcon } from 'react-icons/ai'
 
 import * as S from './styles'
-import { Heading } from '@/components/heading'
 
 const fetchBets = async (config?: AxiosRequestConfig): Promise<Bet[]> => {
   return api.get('/bet/all-bets', { ...config })
