@@ -59,14 +59,10 @@ function RegisterPage () {
       })
 
       if (res.status === 200) {
-        toast.success('Registro realizado com sucesso!', {
-          onClose: () => {
-            navigate('/authentication')
-          },
-        })
+        toast.success('Registro realizado com sucesso!')
+        navigate('/authentication')
+        reset()
       }
-
-      reset()
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return toast.error(error.response?.data.error.message)
