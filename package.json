@@ -8,6 +8,7 @@
     "preview": "vite preview",
     "test": "jest",
     "test:watch": "yarn test --watch",
+    "cy:open": "cypress open",
     "lint": "eslint src --ext ts,tsx",
     "lint:fix": "yarn lint --fix",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
@@ -59,5 +60,8 @@
     "vite-plugin-svgr": "1.0.1",
     "vite-tsconfig-paths": "3.3.17",
     "yup": "0.32.11"
+  },
+  "devDependencies": {
+    "cypress": "9.5.2"
   }
 }
