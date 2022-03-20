@@ -1,12 +1,18 @@
 // load type definitions that come with Cypress module
 /// <reference types="cypress" />
 
+type User = {
+  name: string
+  email: string
+  password: string
+}
+
 declare namespace Cypress {
   interface Chainable {
     /**
-      * Custom command to visit Google page
-      * @example cy.google()
+      * Custom command to sign up a user
+      * @example cy.signUp(user)
     */
-    google(): Chainable<Window>
+    signUp(user: User): Chainable<Element>
   }
 }

@@ -1,5 +1,10 @@
 import { build, fake } from '@jackfranklin/test-data-bot'
-import { User } from './types'
+
+export type User = {
+  name: string
+  email: string
+  password: string
+}
 
 export const createUser = build<User>('User', {
   fields: {

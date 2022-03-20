@@ -27,4 +27,9 @@
 // Add Testing-Library Commands
 import '@testing-library/cypress/add-commands'
 
-Cypress.Commands.add('google', () => cy.visit('https://google.com.br'))
+Cypress.Commands.add('signUp', (user) => {
+  cy.findByPlaceholderText(/name/i).type(user.name)
+  cy.findByPlaceholderText(/email/i).type(user.email)
+  cy.findByPlaceholderText(/password/i).type(user.password)
+  cy.findByRole('button', { name: /register/i }).click()
+})
