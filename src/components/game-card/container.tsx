@@ -13,7 +13,7 @@ export const GameCardContainer = ({
   size = 'large',
 }: GameCardContainerProps) => {
   return (
-    <S.Wrapper color={color} size={size}>
+    <S.Wrapper color={color} size={size} data-cy='game-card'>
       {children}
     </S.Wrapper>
   )

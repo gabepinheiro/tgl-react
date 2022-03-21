@@ -91,7 +91,7 @@ function HomePage () {
       <S.ContainerRecentGames>
         <Heading upcase className='heading'>Recent games</Heading>
         <p className='filterTitle'>Filters</p>
-        <S.ContainerGameButtons>
+        <S.ContainerGameButtons data-cy='game-buttons'>
           <S.GameButtonsWrapper>
             {games && games.map(game => (
               <GameButton
@@ -117,7 +117,7 @@ function HomePage () {
         </CustomLink>
       </S.ContainerRecentGames>
 
-      <S.ContainerBets>
+      <S.ContainerBets data-cy='bets'>
         {!bets?.length && <h3>Você ainda não possui apostas cadastradas.</h3>}
 
         {!!bets &&
@@ -137,7 +137,7 @@ function HomePage () {
                     </GameDate> {' - '}
                     <GameAmount>{getCurrencyFormatted(bet.price)}</GameAmount>
                   </div>
-                  <GameName>{bet.type.type}</GameName>
+                  <GameName data-cy='game-name'>{bet.type.type}</GameName>
                 </GameCardContent>
               </GameCardContainer>
             )

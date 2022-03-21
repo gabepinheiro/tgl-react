@@ -16,6 +16,7 @@ export const GameButton = ({
 }: GameButtonProps) => {
   return (
     <S.Wrapper
+      data-cy='game-button'
       color={color}
       selected={selected}
       {...props}
