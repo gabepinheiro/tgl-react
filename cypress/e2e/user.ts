@@ -1,7 +1,7 @@
 import { createUser } from '../support/generate'
 
 describe('User', () => {
-  it.skip('should sign up a user', () => {
+  it('should sign up a user', () => {
     cy.visit('/register')
     cy.findByRole('heading', { name: /registration/i }).should('exist')
 
@@ -36,5 +36,20 @@ describe('User', () => {
 
     cy.findByRole('button', { name: /log out/i }).click()
     cy.url().should('eq', `${Cypress.config().baseUrl}/authentication`)
+  })
+
+  it('should fill in an email that already exists and show an error message', () => {
+    cy.visit('/register')
+
+    const user = {
+      name: 'cypress',
+      email: 'e2e@tgl.com.br',
+      password: '123456',
+    }
+
+    cy.signUp(user)
+
+    cy.url().should('contain', '/register')
+    cy.findByText(/email already exists/i).should('exist')
   })
 })
