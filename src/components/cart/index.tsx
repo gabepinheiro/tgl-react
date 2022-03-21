@@ -53,11 +53,11 @@ export const Cart = ({
       <S.Content>
         <S.Heading>Cart</S.Heading>
 
-        <S.CartItems>
-          {!items && <p>Carinho vazio.</p>}
+        <S.CartItems data-cy='cart-items'>
+          {!items && <p>Carrinho vazio.</p>}
           {!!items && items.map(item => (
-            <S.CartItem key={item.id}>
-              <S.ButtonDelete onClick={() => handleDeleteItem(item)}>
+            <S.CartItem key={item.id} data-cy='cart-item'>
+              <S.ButtonDelete title='Delete item' onClick={() => handleDeleteItem(item)}>
                 <DeleteIcon size={27} />
               </S.ButtonDelete>
               <GameCardContainer color={item.color} size='medium'>
