@@ -21,7 +21,7 @@ const schema = yup.object({
   name: yup.string()
     .required('Nome é obrigatório'),
   email: yup.string()
-    .required('Email é obrigatória'),
+    .required('Email é obrigatório'),
 }).required()
 
 function AccountPage () {

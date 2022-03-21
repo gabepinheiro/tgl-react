@@ -61,4 +61,16 @@ describe('User', () => {
     cy.findAllByText(/campo de \w+ é obrigatório/i).should('have.length.at.least', 1)
     cy.findByText(/least 6 character/i).should('exist')
   })
+
+  it.only('should go to user account page', () => {
+    cy.visit('/authentication')
+    cy.signIn()
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+
+    cy.shouldCloseToastify()
+
+    cy.findByRole('link', { name: /account/i }).should('exist').click()
+    cy.url().should('eq', `${Cypress.config().baseUrl}/account`)
+    cy.findByRole('heading', { name: /cypress/i }).should('exist')
+  })
 })
