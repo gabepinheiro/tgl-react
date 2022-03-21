@@ -14,15 +14,15 @@ describe('Home', () => {
       cy.findByLabelText(/close/i).click()
     }).should('exist')
 
-    cy.get('[data-cy="game-buttons"]').should('exist').within(() => {
-      cy.get('[data-cy="game-button"]').should('have.length.at.least', 3)
+    cy.dataCy('game-buttons').should('exist').within(() => {
+      cy.dataCy('game-button').should('have.length.at.least', 3)
     })
 
     // Somente Lotofácil
     cy.findByRole('button', { name: /lotofácil/i }).click()
-    cy.get('[data-cy="bets"]').within(() => {
-      cy.get('[data-cy="game-card"]').within(() => {
-        cy.get('[data-cy="game-name"]').findAllByText(/lotofácil/i).should('exist')
+    cy.dataCy('bets').within(() => {
+      cy.dataCy('game-card').within(() => {
+        cy.dataCy('game-name').findAllByText(/lotofácil/i).should('exist')
       })
     })
 
@@ -30,9 +30,9 @@ describe('Home', () => {
     cy.findByRole('button', { name: /lotofácil/i }).click()
 
     cy.findByRole('button', { name: /mega-sena/i }).click()
-    cy.get('[data-cy="bets"]').within(() => {
-      cy.get('[data-cy="game-card"]').within(() => {
-        cy.get('[data-cy="game-name"]').findAllByText(/mega-sena/i).should('exist')
+    cy.dataCy('bets').within(() => {
+      cy.dataCy('game-card').within(() => {
+        cy.dataCy('game-name').findAllByText(/mega-sena/i).should('exist')
       })
     })
 
@@ -40,9 +40,9 @@ describe('Home', () => {
     cy.findByRole('button', { name: /mega-sena/i }).click()
 
     cy.findByRole('button', { name: /quina/i }).click()
-    cy.get('[data-cy="bets"]').within(() => {
-      cy.get('[data-cy="game-card"]').within(() => {
-        cy.get('[data-cy="game-name"]').findAllByText(/quina/i).should('exist')
+    cy.dataCy('bets').within(() => {
+      cy.dataCy('game-card').within(() => {
+        cy.dataCy('game-name').findAllByText(/quina/i).should('exist')
       })
     })
 
@@ -50,9 +50,9 @@ describe('Home', () => {
     cy.findByRole('button', { name: /lotofácil/i }).click()
     cy.findByRole('button', { name: /mega-sena/i }).click()
 
-    cy.get('[data-cy="bets"]').within(() => {
-      cy.get('[data-cy="game-card"]').within(() => {
-        cy.get('[data-cy="game-name"]').findAllByText(/lotofácil|mega-sena|quina/i).should('exist')
+    cy.dataCy('bets').within(() => {
+      cy.dataCy('game-card').within(() => {
+        cy.dataCy('game-name').findAllByText(/lotofácil|mega-sena|quina/i).should('exist')
       })
     })
   })

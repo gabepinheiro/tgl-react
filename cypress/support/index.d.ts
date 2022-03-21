@@ -10,6 +10,12 @@ type User = {
 declare namespace Cypress {
   interface Chainable {
     /**
+      * Custom command to get element by data-cy
+      * @example cy.dataCy(selector)
+    */
+     dataCy(selector: string): Chainable<Element>
+
+    /**
       * Custom command to sign up a user
       * @example cy.signUp(user)
     */

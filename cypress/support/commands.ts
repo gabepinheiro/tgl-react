@@ -27,6 +27,10 @@
 // Add Testing-Library Commands
 import '@testing-library/cypress/add-commands'
 
+Cypress.Commands.add('dataCy', (selector) => {
+  cy.get(`[data-cy="${selector}"]`)
+})
+
 Cypress.Commands.add('signUp', (user) => {
   cy.findByPlaceholderText(/name/i).type(user.name)
   cy.findByPlaceholderText(/email/i).type(user.email)
