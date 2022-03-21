@@ -12,8 +12,8 @@ describe('Cart', () => {
     cy.dataCy('cart-items').should('exist')
     cy.dataCy('cart-item').should('not.exist')
 
-    cy.findByRole('button', { name: /complete game/i }).should('exist').click()
-    cy.findByRole('button', { name: /add to cart/i }).should('exist').click()
+    cy.completeGameAddToCartByIndex(1)
+
     cy.findByText(/carrinho vazio(\.)?/i).should('not.exist')
 
     cy.findByRole('button', { name: /delete item/i }).should('exist').click()
@@ -21,20 +21,12 @@ describe('Cart', () => {
     cy.findByText(/carrinho vazio(\.)?/i).should('exist')
   })
 
-  it.only('should show error message \'Minimum cart value\'', () => {
+  it('should show error message \'Minimum cart value\'', () => {
     cy.dataCy('game-button').should('have.length.at.least', 3)
 
-    cy.dataCy('game-button').should('exist').eq(0).click()
-    cy.findByRole('button', { name: /complete game/i }).should('exist').click()
-    cy.findByRole('button', { name: /add to cart/i }).should('exist').click()
-
-    cy.dataCy('game-button').should('exist').eq(1).click()
-    cy.findByRole('button', { name: /complete game/i }).should('exist').click()
-    cy.findByRole('button', { name: /add to cart/i }).should('exist').click()
-
-    cy.dataCy('game-button').should('exist').eq(2).click()
-    cy.findByRole('button', { name: /complete game/i }).should('exist').click()
-    cy.findByRole('button', { name: /add to cart/i }).should('exist').click()
+    cy.completeGameAddToCartByIndex(0)
+    cy.completeGameAddToCartByIndex(1)
+    cy.completeGameAddToCartByIndex(2)
 
     cy.findByRole('button', { name: /save/i }).should('exist').click()
     cy.findByText(/valor minímo do carrinho: R\$ \d+,\d+/i).should('exist')

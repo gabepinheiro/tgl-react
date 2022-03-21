@@ -29,7 +29,7 @@ declare namespace Cypress {
 
      /**
       * Custom command to sign up a user
-      * @example cy.signIn(email, passoword)
+      * @example cy.shouldRenderBetsGameNames(/game/i)
     */
     shouldRenderBetsGameNames(name: RegExp): Chainable<Element>
 
@@ -38,5 +38,11 @@ declare namespace Cypress {
       * @example cy.shouldCloseToastify()
     */
     shouldCloseToastify(): Chainable<Element>
+
+    /**
+      * Custom command to complete game and add to cart by index
+      * @example cy.completeGameAddToCartByIndex(0)
+    */
+     completeGameAddToCartByIndex(index: number): Chainable<Element>
   }
 }

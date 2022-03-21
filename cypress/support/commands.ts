@@ -57,3 +57,9 @@ Cypress.Commands.add('shouldCloseToastify', () => {
     cy.findByLabelText(/close/i).click()
   }).should('exist')
 })
+
+Cypress.Commands.add('completeGameAddToCartByIndex', (index) => {
+  cy.dataCy('game-button').should('exist').eq(index).click()
+  cy.findByRole('button', { name: /complete game/i }).should('exist').click()
+  cy.findByRole('button', { name: /add to cart/i }).should('exist').click()
+})
