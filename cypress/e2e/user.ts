@@ -16,10 +16,7 @@ describe('User', () => {
     cy.visit('/authentication')
     cy.findByRole('heading', { name: /authentication/i }).should('exist')
 
-    cy.findByPlaceholderText(/email/i).type('e2e@tgl.com.br')
-    cy.findByPlaceholderText(/password/i).type('123456')
-
-    cy.findByRole('button', { name: /log in/i }).click()
+    cy.signIn()
 
     cy.findByText(/cypress/i).should('exist')
   })
