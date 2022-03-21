@@ -1,7 +1,7 @@
 import { createUser } from '../support/generate'
 
 describe('User', () => {
-  it('should sign up a user', () => {
+  it.skip('should sign up a user', () => {
     cy.visit('/register')
     cy.findByRole('heading', { name: /registration/i }).should('exist')
 
@@ -51,5 +51,14 @@ describe('User', () => {
 
     cy.url().should('contain', '/register')
     cy.findByText(/email already exists/i).should('exist')
+  })
+
+  it('should show required field error and password must be at least 6 character', () => {
+    cy.visit('/register')
+
+    cy.findByRole('button', { name: /register/i }).click()
+
+    cy.findAllByText(/campo de \w+ é obrigatório/i).should('have.length.at.least', 1)
+    cy.findByText(/least 6 character/i).should('exist')
   })
 })
