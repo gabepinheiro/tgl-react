@@ -1,6 +1,6 @@
 
 describe('Home', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/authentication')
   })
 
@@ -39,5 +39,21 @@ describe('Home', () => {
     cy.findByRole('button', { name: /lotofácil/i }).click()
     cy.findByRole('button', { name: /mega-sena/i }).click()
     cy.shouldRenderBetsGameNames(/mega-sena|lotofácil|quina/i)
+  })
+
+  it('should display the message "You don\'t have any bets registered yet."', () => {
+    const user = {
+      email: 'e2e@tgl.com.br',
+      passoword: '123456',
+    }
+    cy.signIn(user.email, user.passoword)
+
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+
+    cy.get('.Toastify').within(() => {
+      cy.findByLabelText(/close/i).click()
+    }).should('exist')
+
+    cy.findByText(/Você ainda não possui apostas cadastradas./i).should('exist')
   })
 })
