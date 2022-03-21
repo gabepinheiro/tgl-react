@@ -43,3 +43,11 @@ Cypress.Commands.add('signIn', (email = 'e2e@tgl.com.br', password = '123456') =
   cy.findByPlaceholderText(/password/i).type(password)
   cy.findByRole('button', { name: /log in/i }).click()
 })
+
+Cypress.Commands.add('shouldRenderBetsGameNames', (regex) => {
+  cy.dataCy('bets').within(() => {
+    cy.dataCy('game-card').within(() => {
+      cy.dataCy('game-name').findAllByText(regex).should('exist')
+    })
+  })
+})

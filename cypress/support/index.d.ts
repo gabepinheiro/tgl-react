@@ -13,7 +13,7 @@ declare namespace Cypress {
       * Custom command to get element by data-cy
       * @example cy.dataCy(selector)
     */
-     dataCy(selector: string): Chainable<Element>
+    dataCy(selector: string): Chainable<Element>
 
     /**
       * Custom command to sign up a user
@@ -25,6 +25,12 @@ declare namespace Cypress {
       * Custom command to sign up a user
       * @example cy.signIn(email, passoword)
     */
-     signIn(email?: string, passoword?: string): Chainable<Element>
+    signIn(email?: string, passoword?: string): Chainable<Element>
+
+     /**
+      * Custom command to sign up a user
+      * @example cy.signIn(email, passoword)
+    */
+    shouldRenderBetsGameNames(name: RegExp): Chainable<Element>
   }
 }

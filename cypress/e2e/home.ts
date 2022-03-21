@@ -1,7 +1,10 @@
 
 describe('Home', () => {
-  it('should filter by game type', () => {
+  before(() => {
     cy.visit('/authentication')
+  })
+
+  it('should filter by game type', () => {
     const user = {
       email: 'e2ewithdata@tgl.com.br',
       passoword: '123456',
@@ -20,40 +23,21 @@ describe('Home', () => {
 
     // Somente Lotofácil
     cy.findByRole('button', { name: /lotofácil/i }).click()
-    cy.dataCy('bets').within(() => {
-      cy.dataCy('game-card').within(() => {
-        cy.dataCy('game-name').findAllByText(/lotofácil/i).should('exist')
-      })
-    })
+    cy.shouldRenderBetsGameNames(/lotofácil/i)
 
     // Somente Mega-Sena
     cy.findByRole('button', { name: /lotofácil/i }).click()
-
     cy.findByRole('button', { name: /mega-sena/i }).click()
-    cy.dataCy('bets').within(() => {
-      cy.dataCy('game-card').within(() => {
-        cy.dataCy('game-name').findAllByText(/mega-sena/i).should('exist')
-      })
-    })
+    cy.shouldRenderBetsGameNames(/mega-sena/i)
 
     // Somente Quina
     cy.findByRole('button', { name: /mega-sena/i }).click()
-
     cy.findByRole('button', { name: /quina/i }).click()
-    cy.dataCy('bets').within(() => {
-      cy.dataCy('game-card').within(() => {
-        cy.dataCy('game-name').findAllByText(/quina/i).should('exist')
-      })
-    })
+    cy.shouldRenderBetsGameNames(/quina/i)
 
     // Lotofácil, Mega-Sena e Quina
     cy.findByRole('button', { name: /lotofácil/i }).click()
     cy.findByRole('button', { name: /mega-sena/i }).click()
-
-    cy.dataCy('bets').within(() => {
-      cy.dataCy('game-card').within(() => {
-        cy.dataCy('game-name').findAllByText(/lotofácil|mega-sena|quina/i).should('exist')
-      })
-    })
+    cy.shouldRenderBetsGameNames(/mega-sena|lotofácil|quina/i)
   })
 })
