@@ -168,7 +168,7 @@ export const useNewBet = () => {
 
     try {
       await api.post('/bet/new-bet', newBet)
-      toast.success('Aposta realizado com sucesso!')
+      toast.success('Aposta realizada com sucesso!')
       appDispatch(clearCart())
       navigate('/')
     } catch (err) {

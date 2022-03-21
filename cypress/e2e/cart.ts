@@ -31,4 +31,15 @@ describe('Cart', () => {
     cy.findByRole('button', { name: /save/i }).should('exist').click()
     cy.findByText(/valor minímo do carrinho: R\$ \d+,\d+/i).should('exist')
   })
+
+  it('should save bets', () => {
+    cy.completeGameAddToCartByIndex(0)
+    cy.completeGameAddToCartByIndex(0)
+    cy.completeGameAddToCartByIndex(1)
+    cy.completeGameAddToCartByIndex(2)
+
+    cy.findByRole('button', { name: /save/i }).should('exist').click()
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.findByText(/aposta realizada com sucesso(!)?/i).should('exist')
+  })
 })
