@@ -12,10 +12,7 @@ describe('Home', () => {
     cy.signIn(user.email, user.passoword)
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
-
-    cy.get('.Toastify').within(() => {
-      cy.findByLabelText(/close/i).click()
-    }).should('exist')
+    cy.shouldCloseToastify()
 
     cy.dataCy('game-buttons').should('exist').within(() => {
       cy.dataCy('game-button').should('have.length.at.least', 3)
@@ -49,10 +46,7 @@ describe('Home', () => {
     cy.signIn(user.email, user.passoword)
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
-
-    cy.get('.Toastify').within(() => {
-      cy.findByLabelText(/close/i).click()
-    }).should('exist')
+    cy.shouldCloseToastify()
 
     cy.findByText(/Você ainda não possui apostas cadastradas./i).should('exist')
   })

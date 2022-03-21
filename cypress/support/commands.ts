@@ -51,3 +51,9 @@ Cypress.Commands.add('shouldRenderBetsGameNames', (regex) => {
     })
   })
 })
+
+Cypress.Commands.add('shouldCloseToastify', () => {
+  cy.get('.Toastify').within(() => {
+    cy.findByLabelText(/close/i).click()
+  }).should('exist')
+})

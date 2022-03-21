@@ -32,5 +32,11 @@ declare namespace Cypress {
       * @example cy.signIn(email, passoword)
     */
     shouldRenderBetsGameNames(name: RegExp): Chainable<Element>
+
+    /**
+      * Custom command to close Toastify
+      * @example cy.shouldCloseToastify()
+    */
+    shouldCloseToastify(): Chainable<Element>
   }
 }
