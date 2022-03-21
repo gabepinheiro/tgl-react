@@ -18,6 +18,23 @@ describe('User', () => {
 
     cy.signIn()
 
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
     cy.findByText(/cypress/i).should('exist')
+  })
+
+  it('should sign in and sign out a user', () => {
+    cy.visit('/authentication')
+    cy.findByRole('heading', { name: /authentication/i }).should('exist')
+
+    cy.signIn()
+
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+
+    cy.get('.Toastify').within(() => {
+      cy.findByLabelText(/close/i).should('exist').click()
+    })
+
+    cy.findByRole('button', { name: /log out/i }).click()
+    cy.url().should('eq', `${Cypress.config().baseUrl}/authentication`)
   })
 })
