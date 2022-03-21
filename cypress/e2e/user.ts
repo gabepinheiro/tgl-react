@@ -62,7 +62,7 @@ describe('User', () => {
     cy.findByText(/least 6 character/i).should('exist')
   })
 
-  it.only('should go to user account page', () => {
+  it('should go to user account page', () => {
     cy.visit('/authentication')
     cy.signIn()
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
@@ -72,5 +72,31 @@ describe('User', () => {
     cy.findByRole('link', { name: /account/i }).should('exist').click()
     cy.url().should('eq', `${Cypress.config().baseUrl}/account`)
     cy.findByRole('heading', { name: /cypress/i }).should('exist')
+  })
+
+  it.only('should edit/update account information', () => {
+    cy.intercept('PUT', '**/user/update', res => {
+      res.reply({
+        status: 200,
+        body: {
+          name: 'New name',
+        },
+      })
+    })
+
+    cy.visit('/authentication')
+    cy.signIn()
+    cy.url().should('eq', `${Cypress.config().baseUrl}/`)
+    cy.shouldCloseToastify()
+
+    cy.findByRole('link', { name: /account/i }).should('exist').click()
+    cy.findByRole('heading', { name: /cypress/i }).should('exist')
+
+    cy.findByRole('button', { name: /editar conta/i }).should('exist').click()
+    cy.get('input').first().should('have.value', 'Cypress').clear().type('New Name')
+    cy.findByRole('button', { name: /save/i }).should('exist').click()
+
+    cy.findByRole('heading', { name: /cypress/i }).should('not.exist')
+    cy.findByRole('heading', { name: /new name/i }).should('exist')
   })
 })
