@@ -1,7 +1,7 @@
 import { createUser } from '../support/generate'
 
 describe('User', () => {
-  it.skip('should sign up a user', () => {
+  it('should sign up a user', () => {
     cy.visit('/register')
     cy.findByRole('heading', { name: /registration/i }).should('exist')
 
@@ -74,7 +74,7 @@ describe('User', () => {
     cy.findByRole('heading', { name: /cypress/i }).should('exist')
   })
 
-  it.only('should edit/update account information', () => {
+  it('should edit/update account information', () => {
     cy.intercept('PUT', '**/user/update', res => {
       res.reply({
         status: 200,
