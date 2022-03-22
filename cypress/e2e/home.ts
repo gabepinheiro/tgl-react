@@ -39,11 +39,7 @@ describe('Home', () => {
   })
 
   it('should display the message "You don\'t have any bets registered yet."', () => {
-    const user = {
-      email: 'e2e@tgl.com.br',
-      passoword: '123456',
-    }
-    cy.signIn(user.email, user.passoword)
+    cy.signIn()
 
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
     cy.shouldCloseToastify()

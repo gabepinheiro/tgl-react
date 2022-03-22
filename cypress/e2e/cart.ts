@@ -1,7 +1,7 @@
 describe('Cart', () => {
   beforeEach(() => {
     cy.visit('authentication')
-    cy.signIn()
+    cy.signIn('e2ewithdata@tgl.com.br', '123456')
     cy.shouldCloseToastify()
     cy.findByRole('link', { name: /new bet/i }).should('exist').click()
     cy.url().should('eq', `${Cypress.config().baseUrl}/new-bet`)
