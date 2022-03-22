@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -35,7 +35,9 @@ const schema = yup.object({
 
 function ChangePasswordPage () {
   const navigate = useNavigate()
-  const token = api.defaults.headers.common.Authorization
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
+  const code = query.get('code')
 
   const {
     register,
@@ -51,9 +53,12 @@ function ChangePasswordPage () {
   }, [formErrors])
 
   const onSubmit = async ({ password }: FormInputs) => {
-    const token = api.defaults.headers.common.Authorization
+    if (!code) {
+      return toast.error('O código para recuperar a senha não foi fornecido.')
+    }
+
     try {
-      await api.post(`/reset/${token}`, {
+      await api.post(`/reset/${code}`, {
         password,
       })
 
@@ -63,15 +68,11 @@ function ChangePasswordPage () {
     } catch (error) {
       const err = error as AxiosError
       if (err.response) {
-        return toast.error(err.response.data.message)
+        return toast.error('Código inválido.')
       }
 
       toast.error(err.message)
     }
-  }
-
-  if (!token) {
-    return <Navigate to='/reset-password' />
   }
 
   return (

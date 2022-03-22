@@ -50,9 +50,8 @@ function ResetPasswordPage () {
 
       const { name, token } = res.data
       toast.success(`Olá, ${name}. Informe sua nova senha.`)
-      api.defaults.headers.common.Authorization = `${token}`
 
-      navigate('/change-password')
+      navigate(`/change-password/?code=${token}`)
     } catch (error) {
       const err = error as AxiosError
       if (err.response) {
